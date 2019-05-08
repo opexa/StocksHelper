@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5E46CB3D-FFFF-4380-A272-585B66752D56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Web", "Web\StocksHelper.Web\StocksHelper.Web.csproj", "{C2DF8045-3223-4B8F-BD4A-138C2A76D709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Web", "Web\StocksHelper.Web\StocksHelper.Web.csproj", "{C2DF8045-3223-4B8F-BD4A-138C2A76D709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
