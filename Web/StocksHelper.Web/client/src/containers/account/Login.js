@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import testerActions from '../actions/testerActions';
-import Tester from '../components/Tester';
+import accountActions from '../../actions/accountActions';
+
+import Login from '../../components/account/Login';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getTestData: testerActions.getTestData
+  login: accountActions.login
 }, dispatch)
 
 export default connect(
-  state => state.tester,
+  state => state.account, 
   mapDispatchToProps
-)(Tester);
+)(Login);

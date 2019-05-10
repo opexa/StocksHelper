@@ -1,12 +1,10 @@
 import * as actionTypes from '../constants/TesterActionTypes';
-import testerServices from '../services/TesterServices';
+import testerService from '../services/TesterService';
 
 export default {
   getTestData: () => async (dispatch) => {
-    await testerServices
+    testerService
       .getTestData()
-      .then(res => {
-        dispatch({ type: actionTypes.TEST_DATA_FETCHED, testData: res , isLoading: false })
-      });
+      .then(res => dispatch({ type: actionTypes.TEST_DATA_FETCHED, testData: res, isLoading: false }));
   }
 } 

@@ -1,0 +1,2 @@
+export const TOGGLE_NAVBAR = 'TOGGLE_NAVBAR';
+export const NAVBAR_TOGGLED = 'NAVBAR_TOGGLED';

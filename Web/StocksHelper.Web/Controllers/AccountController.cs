@@ -21,7 +21,7 @@
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Register([FromBody]UserRegisterBindingModel model)
+		public async Task<IActionResult> Register([FromForm]UserRegisterBindingModel model)
 		{
 			if (model == null || !this.ModelState.IsValid)
 			{

@@ -1,16 +1,17 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import * as Counter from './Counter';
-import * as WeatherForecasts from './WeatherForecasts';
+import thunk from 'redux-thunk';
+
 import tester from '../reducers/tester';
+import layout from '../reducers/layout';
+import account from '../reducers/account';
 
 export default function configureStore(history, initialState) {
   // Defining all reducers ( in Flux: stores)
   const reducers = {
-    counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer,
-    tester: tester
+    account,
+    tester,
+    layout
   };
 
   // Combining all middelwares in a whole piece
