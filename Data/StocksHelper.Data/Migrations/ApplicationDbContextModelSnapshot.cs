@@ -105,6 +105,52 @@ namespace StocksHelper.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("StocksHelper.Data.Models.Alert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("Notes")
+                        .IsRequired();
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<string>("Ticker")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("Alerts");
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.ApplicationLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("LogLevel");
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
             modelBuilder.Entity("StocksHelper.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -180,6 +226,50 @@ namespace StocksHelper.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("StocksHelper.Data.Models.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<bool>("IsPrivate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("TeamPhoto");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<int>("TeamRole");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TeamParticipants");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("StocksHelper.Data.Models.ApplicationRole")
@@ -220,6 +310,38 @@ namespace StocksHelper.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("StocksHelper.Data.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.Alert", b =>
+                {
+                    b.HasOne("StocksHelper.Data.Models.ApplicationUser")
+                        .WithMany("Alerts")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("StocksHelper.Data.Models.Team", "Team")
+                        .WithMany("Alerts")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.Team", b =>
+                {
+                    b.HasOne("StocksHelper.Data.Models.ApplicationUser")
+                        .WithMany("TeamsIn")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+                {
+                    b.HasOne("StocksHelper.Data.Models.Team", "Team")
+                        .WithMany("Participants")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("StocksHelper.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);

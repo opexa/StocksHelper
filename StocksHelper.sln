@@ -13,15 +13,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5E46CB3D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Web", "Web\StocksHelper.Web\StocksHelper.Web.csproj", "{C2DF8045-3223-4B8F-BD4A-138C2A76D709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Data.Models", "Data\StocksHelper.Data.Models\StocksHelper.Data.Models.csproj", "{9711A963-15CE-4607-8F9D-B67CBF2508B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Data.Models", "Data\StocksHelper.Data.Models\StocksHelper.Data.Models.csproj", "{9711A963-15CE-4607-8F9D-B67CBF2508B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Data", "Data\StocksHelper.Data\StocksHelper.Data.csproj", "{51A4BF5E-327B-470E-80ED-F68DB319FB49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Data", "Data\StocksHelper.Data\StocksHelper.Data.csproj", "{51A4BF5E-327B-470E-80ED-F68DB319FB49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Common", "StocksHelper.Common\StocksHelper.Common.csproj", "{3FE67B22-03AB-4378-9484-CDB60F1F4D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Common", "StocksHelper.Common\StocksHelper.Common.csproj", "{3FE67B22-03AB-4378-9484-CDB60F1F4D7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Web.Infrastructure", "Web\StocksHelper.Web.Infrastructure\StocksHelper.Web.Infrastructure.csproj", "{5D24225F-F880-4F6A-8C09-631549DAB2C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Web.Infrastructure", "Web\StocksHelper.Web.Infrastructure\StocksHelper.Web.Infrastructure.csproj", "{5D24225F-F880-4F6A-8C09-631549DAB2C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Data.Common", "Data\StocksHelper.Data.Common\StocksHelper.Data.Common.csproj", "{5B9E31A3-6BA2-4387-9414-3B980DC7179A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.Mapping", "Services\StocksHelper.Services.Mapping\StocksHelper.Services.Mapping.csproj", "{C5119C54-F260-431B-82E8-434F17258AB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.DataServices", "Services\StocksHelper.Services.DataServices\StocksHelper.Services.DataServices.csproj", "{A16BAC52-28BC-4E68-9A1C-7904C7359721}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.Models", "Services\StocksHelper.Services.Models\StocksHelper.Services.Models.csproj", "{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Services.Logging", "Services\StocksHelper.Services.Logging\StocksHelper.Services.Logging.csproj", "{BDE9C677-53FF-4A57-873A-FA3082DB95A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +61,22 @@ Global
 		{5B9E31A3-6BA2-4387-9414-3B980DC7179A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B9E31A3-6BA2-4387-9414-3B980DC7179A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B9E31A3-6BA2-4387-9414-3B980DC7179A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5119C54-F260-431B-82E8-434F17258AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5119C54-F260-431B-82E8-434F17258AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5119C54-F260-431B-82E8-434F17258AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5119C54-F260-431B-82E8-434F17258AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A16BAC52-28BC-4E68-9A1C-7904C7359721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16BAC52-28BC-4E68-9A1C-7904C7359721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16BAC52-28BC-4E68-9A1C-7904C7359721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16BAC52-28BC-4E68-9A1C-7904C7359721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +87,10 @@ Global
 		{51A4BF5E-327B-470E-80ED-F68DB319FB49} = {CF7E22EF-28E0-4031-9ABC-821D3C85B50C}
 		{5D24225F-F880-4F6A-8C09-631549DAB2C2} = {243AA0FC-C8FF-4EFE-AD79-A124ECA2CFB1}
 		{5B9E31A3-6BA2-4387-9414-3B980DC7179A} = {CF7E22EF-28E0-4031-9ABC-821D3C85B50C}
+		{C5119C54-F260-431B-82E8-434F17258AB5} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
+		{A16BAC52-28BC-4E68-9A1C-7904C7359721} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
+		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
+		{BDE9C677-53FF-4A57-873A-FA3082DB95A2} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D0A0550-C976-4ADC-BD3E-4E6E3C9C74F9}

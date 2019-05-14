@@ -10,7 +10,7 @@ namespace StocksHelper.Data.Common.Repositories
 	{
 		IQueryable<TEntity> All();
 
-		Task<TEntity> GetByIdAsync(params object[] id);
+		Task<TEntity> FindAsync(params object[] id);
 
 		void Add(TEntity entity);
 

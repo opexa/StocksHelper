@@ -75,5 +75,13 @@
 					.IsRequired()
 					.OnDelete(DeleteBehavior.Restrict);
 		}
+
+		public virtual DbSet<TeamParticipant> TeamParticipants { get; set; }
+
+		public virtual DbSet<Team> Teams { get; set; }
+
+		public virtual DbSet<Alert> Alerts { get; set; }
+
+		public virtual DbSet<ApplicationLog> Logs { get; set; }
 	}
 }

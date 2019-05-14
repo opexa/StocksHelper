@@ -10,8 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +32,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\StocksHelper.Data\StocksHelper.Data.csproj" />
+    <ProjectReference Include="..\..\Services\StocksHelper.Services.DataServices\StocksHelper.Services.DataServices.csproj" />
+    <ProjectReference Include="..\..\Services\StocksHelper.Services.Logging\StocksHelper.Services.Logging.csproj" />
+    <ProjectReference Include="..\..\Services\StocksHelper.Services.Mapping\StocksHelper.Services.Mapping.csproj" />
     <ProjectReference Include="..\StocksHelper.Web.Infrastructure\StocksHelper.Web.Infrastructure.csproj" />
   </ItemGroup>
 

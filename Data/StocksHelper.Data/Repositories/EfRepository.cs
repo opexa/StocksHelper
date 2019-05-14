@@ -22,7 +22,7 @@ namespace StocksHelper.Data.Repositories
 
 		public virtual IQueryable<TEntity> All() => this.DbSet;
 
-		public virtual Task<TEntity> GetByIdAsync(params object[] id) => this.DbSet.FindAsync(id);
+		public virtual Task<TEntity> FindAsync(params object[] id) => this.DbSet.FindAsync(id);
 
 		public virtual void Add(TEntity entity)
 		{

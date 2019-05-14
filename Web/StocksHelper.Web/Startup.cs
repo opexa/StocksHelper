@@ -1,3 +1,7 @@
+using Microsoft.Extensions.Logging;
+using StocksHelper.Services.DataServices;
+using StocksHelper.Services.Logging;
+
 namespace StocksHelper.Web
 {
 	using System;
@@ -26,6 +30,10 @@ namespace StocksHelper.Web
 	using StocksHelper.Data.Models;
 	using StocksHelper.Data.Repositories;
 	using StocksHelper.Data.Seeding;
+	using StocksHelper.Services.Logging.Extensions;
+	using StocksHelper.Services.Logging.Providers;
+	using StocksHelper.Services.Mapping;
+	using StocksHelper.Services.Models.Teams;
 	using StocksHelper.Web.Infrastructure.Middlewares.Auth;
 
 	public class Startup
@@ -39,9 +47,15 @@ namespace StocksHelper.Web
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			AutoMapperConfig.RegisterMappings(
+				typeof(TeamViewModel).Assembly
+			);
+
 			// Framework services
-			services.AddDbContext<ApplicationDbContext>(
-				options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+
+			LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+			services.AddDbContext<LoggingContext>();
 
 			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["JwtTokenValidation:Secret"]));
 
@@ -91,7 +105,11 @@ namespace StocksHelper.Web
 			services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
 			services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
 
+			services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+			services.AddScoped<ITeamsService, TeamsService>();
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddLogging();
 
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
@@ -101,8 +119,14 @@ namespace StocksHelper.Web
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(
+			IApplicationBuilder app,
+			IHostingEnvironment env, 
+			ILoggerFactory loggingFactory
+		)
 		{
+			loggingFactory.AddContext(LogLevel.Warning);
+
 			// Seed data on application startup
 			using (var serviceScope = app.ApplicationServices.CreateScope())
 			{

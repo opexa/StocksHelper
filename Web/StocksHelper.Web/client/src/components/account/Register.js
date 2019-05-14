@@ -32,7 +32,7 @@ export default class Register extends Component {
     if (model.isValid) {
       this.props.register(data);
     } else {
-      notifications.error(model.message)
+      notifications.alert(model.message)
     }
   }
 

@@ -8,9 +8,10 @@ import Login from './containers/account/Login';
 import Logout from './containers/account/Logout';
 import Register from './containers/account/Register';
 
-import './content/css/app.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/nest.css';
+import './content/css/app.css';
 
 export default () => (
   <Layout>

@@ -7,7 +7,14 @@ export default ({ isAuthorized }) => {
     return (
       <Fragment>
         <li className="nav-item">
-          <NavLink tag={Link} className='text-dark' to='/account/logout'>Logout</NavLink>
+          <NavLink tag={Link} className="text-dark" to='/account'>
+            <i class="far fa-user"></i>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink tag={Link} className='text-dark' to='/account/logout'>
+            <i className="fas fa-sign-out-alt"></i>
+          </NavLink>
         </li>
       </Fragment>
     );

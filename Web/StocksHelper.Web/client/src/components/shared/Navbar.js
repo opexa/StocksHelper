@@ -8,7 +8,7 @@ import Authorization from './Authorization';
 const Navbar = ({ toggle, isOpened, isAuthorized }) => {
   return (
     <header>
-      <nav className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 navbar navbar-light">
+      <nav className="navbar navbar-expand-sm navbar-toggleable-sm fixed-top border-bottom box-shadow mb-3 navbar-light bg-light">
         <div className="container">
           <Link to='/' className='navbar-brand'>
             <img src={logo} alt="" />
