@@ -12,12 +12,14 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/nest.css';
 import './content/css/app.css';
+import Teams from './containers/Teams';
 
 export default () => (
   <Layout>
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/tester' component={Tester} />
+      <Route path='/teams' component={Teams} />
 
       <Route path='/account/login' component={Login} />
       <Route path='/account/register' component={Register} />

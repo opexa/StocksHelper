@@ -33,8 +33,14 @@ const isAuthorized = () => {
   return false;
 }
 
+const getToken = () => {
+  const token = storageService.get('authtoken');
+  return token;
+}
+
 export default {
   authorize,
   unauthorize,
-  isAuthorized
+  isAuthorized,
+  getToken
 }

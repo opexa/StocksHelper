@@ -8,7 +8,7 @@ export default ({ isAuthorized }) => {
       <Fragment>
         <li className="nav-item">
           <NavLink tag={Link} className="text-dark" to='/account'>
-            <i class="far fa-user"></i>
+            <i className="far fa-user"></i>
           </NavLink>
         </li>
         <li className="nav-item">

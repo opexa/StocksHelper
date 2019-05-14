@@ -1,6 +1,7 @@
 import * as actionTypes from '../constants/LayoutActionTypes';
 import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../constants/AccountActionTypes';
 import authService from '../services/AuthService';
+import notifications from '../infrastructure/notifications';
 
 const initialState = {
   isOpened: false,
@@ -26,6 +27,10 @@ export default function layout(state = initialState, action) {
         ...state,
         isAuthorized: false
       }
+    }
+    case actionTypes.APP_ERROR: {
+      notifications.error(action.message);
+      return state;
     }
     default:
       return state;

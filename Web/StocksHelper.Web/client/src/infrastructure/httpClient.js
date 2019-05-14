@@ -1,6 +1,9 @@
+import { UNEXPECTED_ERROR } from '../constants/AppConstants';
+import AuthService from '../services/AuthService';
+
 function addAuthorization(headers) {
   let newHeaders = headers;
-  newHeaders.Authorization = `Bearer `;
+  newHeaders.Authorization = `Bearer ${AuthService.getToken()}`;
 
   return newHeaders;
 }
@@ -8,7 +11,7 @@ function addAuthorization(headers) {
 const handleResponse = response => {
   if (!response.ok) {
     return response.text().then(err => {
-      throw new Error(err);
+      throw new Error(err || UNEXPECTED_ERROR);
     });
   }
   return response.text()
@@ -39,6 +42,7 @@ function makeRequest(method, auth, body) {
     }
     options.body = formBody.join("&");
   }
+  
   return options;
 }
 

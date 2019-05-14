@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace StocksHelper.Services.DataServices
 {
@@ -49,6 +50,26 @@ namespace StocksHelper.Services.DataServices
 		public TeamViewModel Get(int id)
 		{
 			var team = this.teamsRepository.All().Where(t => t.Id == id).To<TeamViewModel>().FirstOrDefault();
+
+			return team;
+		}
+
+		public IEnumerable<TeamViewModel> GetMyTeams(string userId)
+		{
+			var myTeams = this.teamsRepository.All()
+											.Where(t => t.Participants.Any(p => p.UserId == userId))
+											.To<TeamViewModel>()
+											.ToList();
+
+			return myTeams;
+		}
+		
+		public async Task<TeamViewModel> LoadTeam(int id, string userId)
+		{
+			var team = await this.teamsRepository.All()
+														.Where(t => t.Id == id && t.Participants.Any(p => p.UserId == userId))
+														.To<TeamViewModel>()
+														.FirstOrDefaultAsync();
 
 			return team;
 		}

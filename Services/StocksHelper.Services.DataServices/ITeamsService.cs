@@ -12,5 +12,9 @@
 		TeamViewModel Get(int id);
 
 		IEnumerable<TeamViewModel> Search(string name);
+
+		IEnumerable<TeamViewModel> GetMyTeams(string userId);
+
+		Task<TeamViewModel> LoadTeam(int teamId, string userId);
 	}
 }

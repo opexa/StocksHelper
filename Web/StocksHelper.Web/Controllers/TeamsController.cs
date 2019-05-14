@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Linq;
+using Microsoft.Extensions.Logging;
 using StocksHelper.Services.Logging.Providers;
+using StocksHelper.Services.Mapping;
+using StocksHelper.Services.Models.Teams;
 using StocksHelper.Web.Infrastructure.Extensions;
 
 namespace StocksHelper.Web.Controllers
@@ -16,7 +19,6 @@ namespace StocksHelper.Web.Controllers
 	{
 		private readonly ITeamsService teamsService;
 		private readonly UserManager<ApplicationUser> userManager;
-		private readonly DbLogger logger;
 
 		public TeamsController(ITeamsService teamsService, UserManager<ApplicationUser> userManager)
 		{
@@ -44,6 +46,24 @@ namespace StocksHelper.Web.Controllers
 			Team team = await this.teamsService.Create(input.Name, loggedUserId);
 
 			return Json(team);
+		}
+
+		[HttpGet]
+		public IActionResult FetchMyTeams()
+		{
+			string loggedUserId = this.User.GetUserId();
+			var myTeams = this.teamsService.GetMyTeams(loggedUserId);
+
+			return Ok(myTeams);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Load(int id)
+		{
+			string loggedUserId = this.User.GetUserId();
+			var team = await this.teamsService.LoadTeam(id, loggedUserId);
+
+			return Ok(team);
 		}
 	}
 }

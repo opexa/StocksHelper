@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 
 export default ({ toggle, isOpened, isAuthorized, ...props }) => {
   return (
-    <div>
+    <div className='container'>
       <Navbar toggle={toggle} isOpened={isOpened} isAuthorized={isAuthorized} />
       <Container>
         {props.children}

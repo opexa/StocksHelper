@@ -7,6 +7,8 @@ import { createBrowserHistory } from 'history';
 import configureStore from './stores/configureStore';
 import App from './App';
 
+import 'bootstrap/dist/js/bootstrap.js';
+
 const initialState = {};
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
