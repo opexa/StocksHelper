@@ -18,12 +18,10 @@ namespace StocksHelper.Web.Controllers
 	public class TeamsController : BaseController
 	{
 		private readonly ITeamsService teamsService;
-		private readonly UserManager<ApplicationUser> userManager;
 
-		public TeamsController(ITeamsService teamsService, UserManager<ApplicationUser> userManager)
+		public TeamsController(ITeamsService teamsService)
 		{
 			this.teamsService = teamsService;
-			this.userManager = userManager;
 		}
 
 		[HttpGet]
@@ -64,6 +62,14 @@ namespace StocksHelper.Web.Controllers
 			var team = await this.teamsService.LoadTeam(id, loggedUserId);
 
 			return Ok(team);
+		}
+
+		[HttpGet]
+		public IActionResult SuggestMember(string input)
+		{
+			var suggestions = this.teamsService.GetMemberSuggestions(input);
+
+			return Ok(suggestions);
 		}
 	}
 }

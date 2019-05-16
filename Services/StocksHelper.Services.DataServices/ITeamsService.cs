@@ -4,6 +4,7 @@
 	using System.Threading.Tasks;
 	using StocksHelper.Data.Models;
 	using StocksHelper.Services.Models.Teams;
+	using StocksHelper.Services.Models.Users;
 
 	public interface ITeamsService
 	{
@@ -16,5 +17,7 @@
 		IEnumerable<TeamViewModel> GetMyTeams(string userId);
 
 		Task<TeamViewModel> LoadTeam(int teamId, string userId);
+
+		IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name);
 	}
 }

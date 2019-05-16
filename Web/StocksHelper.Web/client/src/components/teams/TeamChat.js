@@ -1,37 +1,20 @@
 import React, { Component } from 'react';
+import { DEFAULT_GROUP_PHOTO } from '../../constants/AppConstants';
 
 export default class TeamChat extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      teamId: props.match.params.id
-    }
-  }
-
-  componentDidMount () {
-    this.props.loadTeam(this.state.teamId);
-  }
-  
-  componentWillReceiveProps (newProps) {
-    let id = newProps.match.params.id;
-    
-    if (id !== undefined) {
-      if (id !== this.state.teamId) {
-        this.props.loadTeam(id);
-
-        this.setState({ teamId: id });
-      }
-    }
-  }
+  componentDidMount = () => this.props.loadTeam();
 
   render () {
     return (
-      <div className="col-md-8">
-        <div className='border border-primary'>
-          <p>
-            {this.props.team.name || 'No name'}
-          </p>
+      <div className="col-md-8 float-left">
+        <div className='border border-primary team-selected'>
+          <div className="team-header">
+            <div className="d-flex align-items-center">
+              <img className='team-photo' src={this.props.team.teamPhoto || DEFAULT_GROUP_PHOTO} alt=''/>
+              <h3>{this.props.team.name}</h3>
+            </div>
+            <hr/>
+          </div>
         </div>
       </div>
     );

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+import { DEFAULT_GROUP_PHOTO } from '../../constants/AppConstants';
 
 export default class TeamsNavigation extends Component {
   componentDidMount = () => this.props.fetchMyTeams();
 
   render() {
     return (
-      <div className="col-md-4 px-0 border border-primary">
+      <div className="col-md-4 px-0 border border-primary float-left">
         <div className="teams-navigation">
           <div className="teams-navigation-header">
             <h4>My Teams</h4>
@@ -18,14 +19,17 @@ export default class TeamsNavigation extends Component {
                 <i className="fas fa-plus-circle"></i>&nbsp;&nbsp;<span>Create new team</span>
               </div>
             </NavLink>
-            {this.props.myTeams.map((team) => (
-              <NavLink to={`/teams/my/${team.id}`} className='nav-link team-link' activeClassName='active' key={team.id}>
-                <div className='d-flex'>
-                  {team.teamPhoto ? <img src={team.teamPhoto} alt="" className='team-photo' /> : <img src='http://gigapan.com/images/default-group-avatar.jpg?1380820092' alt='' className='team-photo' />}&nbsp;&nbsp;
-                  <span>{team.name}</span>
-                </div>
-              </NavLink>
-            ))}
+            {this.props.myTeams.map((team) => {
+              let activeClassName = team.id === this.props.selectedTeamId ? 'active' : '';
+              return (
+                <Link to={`/teams/my`} className={`nav-link team-link ${activeClassName}`} onClick={() => this.props.loadTeam(team.id)} key={team.id}>
+                  <div className='d-flex'>
+                    <img src={team.teamPhoto || DEFAULT_GROUP_PHOTO} alt="" className='team-photo' />&nbsp;&nbsp;
+                    <span>{team.name}</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

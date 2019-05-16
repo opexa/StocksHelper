@@ -26,7 +26,12 @@ export default class Form extends Component {
               {React.Children.map(child.props.children, (subchild) => {
                 if (subchild.type === 'input' && subchild.props.name) {
                   return React.cloneElement(subchild, {
-                    onChange: this.onChange,
+                    onChange: (ev) => {
+                      if (subchild.props.onChange !== undefined) {
+                        subchild.props.onChange(ev);
+                      }
+                      this.onChange(ev);
+                    },
                     value: this.state[subchild.props.name]
                   });
                 }

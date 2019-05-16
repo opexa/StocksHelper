@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StocksHelper.Services.Models.Users;
 
 namespace StocksHelper.Services.DataServices
 {
@@ -16,10 +17,12 @@ namespace StocksHelper.Services.DataServices
 	public class TeamsService : ITeamsService
 	{
 		private readonly IRepository<Team> teamsRepository;
+		private readonly UserManager<ApplicationUser> userManager;
 
-		public TeamsService(IRepository<Team> teamsRepository)
+		public TeamsService(IRepository<Team> teamsRepository, UserManager<ApplicationUser> userManager)
 		{
 			this.teamsRepository = teamsRepository;
+			this.userManager = userManager;
 		}
 
 		public IEnumerable<TeamViewModel> Search(string name)
@@ -72,6 +75,15 @@ namespace StocksHelper.Services.DataServices
 														.FirstOrDefaultAsync();
 
 			return team;
+		}
+
+		public IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name)
+		{
+			var suggestions = this.userManager.Users.Where(u => u.UserName.Contains(name))
+																							.To<UserSimpleViewModel>().Take(10)
+																							.ToList();
+
+			return suggestions;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using StocksHelper.Services.DataServices;
 using StocksHelper.Services.Logging;
+using StocksHelper.Services.Models.Users;
 
 namespace StocksHelper.Web
 {
@@ -48,7 +49,8 @@ namespace StocksHelper.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			AutoMapperConfig.RegisterMappings(
-				typeof(TeamViewModel).Assembly
+				typeof(TeamViewModel).Assembly,
+				typeof(UserSimpleViewModel).Assembly
 			);
 
 			// Framework services

@@ -5,10 +5,22 @@ import TeamChat from './TeamChat';
 import TeamsNavigation from './TeamsNavigation';
 
 import '../../content/css/teams.css';
+import CreateTeam from './CreateTeam';
 
 export default (props) => (
-  <div className="row">    
-    <TeamsNavigation fetchMyTeams={props.fetchMyTeams} myTeams={props.myTeams} />     
-    <Route path={`${props.match.url}/my/:id?`} render={(routeProps) => <TeamChat team={props.selectedTeam} loadTeam={props.loadTeam} {...routeProps} />} />
+  <div className="row d-block">
+    <TeamsNavigation fetchMyTeams={props.fetchMyTeams}
+                      myTeams={props.myTeams}
+                      loadTeam={props.loadTeam}
+                      selectedTeamId={props.selectedTeam.id} />
+    <Route path={`${props.match.url}/my`} 
+            render={(routeProps) => <TeamChat team={props.selectedTeam} 
+                                              loadTeam={props.loadTeam} 
+                                              {...routeProps} />} />
+    <Route path={`${props.match.url}/create`}
+            render={() => <CreateTeam resetNavigation={props.resetSelectedTeam} 
+                                      suggestMembers={props.suggestMembers} 
+                                      memberSuggestions={props.memberSuggestions}
+                                      clearSuggestions={props.clearMemberSuggestions} />} />
   </div>
 );

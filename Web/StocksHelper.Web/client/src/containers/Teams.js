@@ -7,7 +7,10 @@ const mapStateToProps = state => state.teams;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchMyTeams: teamsActions.fetchMyTeams,
-  loadTeam: teamsActions.loadTeam
+  loadTeam: teamsActions.loadTeam,
+  resetSelectedTeam: teamsActions.resetSelectedTeam,
+  suggestMembers: teamsActions.suggestMembers,
+  clearMemberSuggestions: teamsActions.clearMemberSuggestions
 }, dispatch)
 
 export default connect(
