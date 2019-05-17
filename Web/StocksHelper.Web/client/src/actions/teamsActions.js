@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/TeamsActionTypes';
 import { APP_ERROR } from '../constants/LayoutActionTypes';
+import { push } from 'react-router-redux';
 import teamsService from '../services/TeamsService';
 
 const fetchMyTeams = () => (dispatch) => {
@@ -33,10 +34,22 @@ const suggestMembers = (input) => (dispatch) => {
 
 const clearMemberSuggestions = () => (dispatch) => dispatch({ type: actionTypes.CLEAR_MEMBER_SUGGESTIONS });
 
+const createTeam = (team) => (dispatch) => {
+  teamsService
+    .create(team)
+    .then(newTeam => {
+      debugger
+      dispatch({ type: actionTypes.TEAM_CREATED, newTeam });
+      dispatch(push('/teams/my'));
+    })
+    .catch(({ message }) => dispatch({ type: actionTypes.CREATE_TEAM_ERROR, message }));
+}
+
 export default {
   fetchMyTeams,
   loadTeam,
   resetSelectedTeam,
   suggestMembers,
-  clearMemberSuggestions
+  clearMemberSuggestions,
+  createTeam
 }

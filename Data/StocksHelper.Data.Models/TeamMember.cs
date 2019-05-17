@@ -6,7 +6,7 @@ using StocksHelper.Data.Common.Models;
 
 namespace StocksHelper.Data.Models
 {
-	public class TeamParticipant : BaseModel<int>
+	public class TeamMember : BaseModel<int>
 	{
 		[Required]
 		public string UserId { get; set; } 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DEFAULT_GROUP_PHOTO } from '../../constants/AppConstants';
+import * as DEFAULT_TEAM_PHOTO from '../../content/images/default-team-photo.jpg';
 
 export default class TeamChat extends Component {
   componentDidMount = () => this.props.loadTeam();
@@ -10,7 +10,7 @@ export default class TeamChat extends Component {
         <div className='border border-primary team-selected'>
           <div className="team-header">
             <div className="d-flex align-items-center">
-              <img className='team-photo' src={this.props.team.teamPhoto || DEFAULT_GROUP_PHOTO} alt=''/>
+              <img className='team-photo' src={this.props.team.teamPhoto || DEFAULT_TEAM_PHOTO} alt=''/>
               <h3>{this.props.team.name}</h3>
             </div>
             <hr/>

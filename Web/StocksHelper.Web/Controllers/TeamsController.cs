@@ -1,18 +1,12 @@
-﻿using System.Linq;
-using Microsoft.Extensions.Logging;
-using StocksHelper.Services.Logging.Providers;
-using StocksHelper.Services.Mapping;
-using StocksHelper.Services.Models.Teams;
-using StocksHelper.Web.Infrastructure.Extensions;
+﻿using StocksHelper.Web.Infrastructure.Extensions;
 
 namespace StocksHelper.Web.Controllers
 {
 	using System;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Identity;
 	using StocksHelper.Services.DataServices;
+	using StocksHelper.Services.Models.Teams;
 	using StocksHelper.Data.Models;
-	using StocksHelper.Web.Models.Teams;
 	using System.Threading.Tasks;
 
 	public class TeamsController : BaseController
@@ -35,15 +29,15 @@ namespace StocksHelper.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(TeamInputModel input)
+		public async Task<IActionResult> Create([FromBody]TeamInputModel inputModel)
 		{
 			if (!this.ModelState.IsValid)
 				return BadRequest(ModelState);
 
 			string loggedUserId = this.User.GetUserId();
-			Team team = await this.teamsService.Create(input.Name, loggedUserId);
+			Team team = await this.teamsService.Create(inputModel, loggedUserId);
 
-			return Json(team);
+			return Ok(team);
 		}
 
 		[HttpGet]

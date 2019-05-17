@@ -21,7 +21,8 @@ const handleResponse = response => {
 
 function makeRequest(method, auth, body) {
   let headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    // 'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json'
   }
 
   if (auth) {
@@ -32,15 +33,18 @@ function makeRequest(method, auth, body) {
     method,
     headers
   };
-
+  
   if (body) {
-    var formBody = [];
-    for (var prop in body) {
-      var encodedKey = encodeURIComponent(prop);
-      var encodedValue = encodeURIComponent(body[prop]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    options.body = formBody.join("&");
+    options.body = JSON.stringify(body);
+    // options.body = body;
+  //   var formBody = [];
+  //   for (var prop in body) {
+  //     debugger
+  //     var encodedKey = encodeURIComponent(prop);
+  //     var encodedValue = encodeURIComponent(body[prop]);
+  //     formBody.push(encodedKey + "=" + encodedValue);
+  //   }
+  //   options.body = formBody.join("&");
   }
   
   return options;

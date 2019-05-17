@@ -248,7 +248,7 @@ namespace StocksHelper.Data.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,7 +267,7 @@ namespace StocksHelper.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TeamParticipants");
+                    b.ToTable("TeamMembers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -334,10 +334,10 @@ namespace StocksHelper.Data.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>
                 {
                     b.HasOne("StocksHelper.Data.Models.Team", "Team")
-                        .WithMany("Participants")
+                        .WithMany("Members")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 

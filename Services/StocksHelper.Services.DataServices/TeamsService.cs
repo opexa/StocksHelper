@@ -35,15 +35,20 @@ namespace StocksHelper.Services.DataServices
 			return teams;
 		}
 
-		public async Task<Team> Create(string name, string creatorId)
+		public async Task<Team> Create(TeamInputModel model, string creatorId)
 		{
-			Team team = new Team() { Name = name };
-			team.Participants.Add(new TeamParticipant
+			Team team = new Team() { Name = model.Name };
+			team.Members.Add(new TeamMember { UserId = creatorId, TeamRole = TeamRole.Administrator });
+
+			foreach (TeamMemberInputModel modelMember in model.Members)
 			{
-				UserId = creatorId,
-				TeamRole = TeamRole.Administrator
-			});
-			
+				bool isUserValid = await this.userManager.FindByIdAsync(modelMember.Id) != null;
+				if (isUserValid)
+				{
+					team.Members.Add(new TeamMember() { UserId = modelMember.Id, TeamRole = TeamRole.Member });
+				}
+			}
+
 			this.teamsRepository.Add(team);
 			await this.teamsRepository.SaveChangesAsync();
 
@@ -60,17 +65,17 @@ namespace StocksHelper.Services.DataServices
 		public IEnumerable<TeamViewModel> GetMyTeams(string userId)
 		{
 			var myTeams = this.teamsRepository.All()
-											.Where(t => t.Participants.Any(p => p.UserId == userId))
+											.Where(t => t.Members.Any(p => p.UserId == userId))
 											.To<TeamViewModel>()
 											.ToList();
 
 			return myTeams;
 		}
-		
+
 		public async Task<TeamViewModel> LoadTeam(int id, string userId)
 		{
 			var team = await this.teamsRepository.All()
-														.Where(t => t.Id == id && t.Participants.Any(p => p.UserId == userId))
+														.Where(t => t.Id == id && t.Members.Any(p => p.UserId == userId))
 														.To<TeamViewModel>()
 														.FirstOrDefaultAsync();
 

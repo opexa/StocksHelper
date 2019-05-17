@@ -21,6 +21,7 @@ export default (props) => (
             render={() => <CreateTeam resetNavigation={props.resetSelectedTeam} 
                                       suggestMembers={props.suggestMembers} 
                                       memberSuggestions={props.memberSuggestions}
-                                      clearSuggestions={props.clearMemberSuggestions} />} />
+                                      clearSuggestions={props.clearMemberSuggestions}
+                                      createTeam={props.createTeam} /> } />
   </div>
 );

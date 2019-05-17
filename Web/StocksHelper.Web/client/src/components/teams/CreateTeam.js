@@ -26,25 +26,27 @@ export default class CreateTeam extends Component {
     ev.preventDefault();
 
     var model = {
-      members: this.state.members,
-      name: this.state.name
+      Members: this.state.members,
+      Name: this.state.name
     }
 
     const modelState = this.validateModel(model);
     if (!modelState.isValid)
       return notifications.warning(modelState.errors.join(' </br>'));
+
+    this.props.createTeam(model);
   }
 
   validateModel = (model) => {
     let errors = [],
       isValid = true;
 
-    if (model.name.length < 3) {
+    if (model.Name.length < 3) {
       errors.push('The team name should be at least 3 symbols.');
       isValid = false;
     }
 
-    if (model.members.length < 1) {
+    if (model.Members.length < 1) {
       errors.push('You must add at least one member.');
       isValid = false;
     }
@@ -59,8 +61,7 @@ export default class CreateTeam extends Component {
       return this.props.clearSuggestions();
 
     if (ev.keyCode === 13) {
-      this.selectSuggestion(this.props.memberSuggestions[this.state.focusedSuggestion]);
-      return this.setState({ memberInput: '' });
+      return this.selectSuggestion(this.props.memberSuggestions[this.state.focusedSuggestion]);
     }
 
     if (ev.keyCode === 27)
@@ -76,7 +77,6 @@ export default class CreateTeam extends Component {
       let focusedSuggestion = this.state.focusedSuggestion === 0 ? this.props.memberSuggestions.length - 1 : this.state.focusedSuggestion - 1;
       this.setState({ focusedSuggestion });
     }
-
 
     this.props.suggestMembers(memberInput);
   }
@@ -111,6 +111,18 @@ export default class CreateTeam extends Component {
     }
   }
 
+  removeMember = (member) => {
+    let members = this.state.members
+    for (let i = 0; i < members.length; i++) {
+      if (members[i].id === member.id) {
+        members.splice(i, 1);
+        break;
+      }
+    }
+    
+    this.setState({ members });
+  }
+
   render() {
     return (
       <div className="col-md-8 float-left">
@@ -137,7 +149,7 @@ export default class CreateTeam extends Component {
                 <div className="form-control members-container">
                   {this.state.members.length > 0 ?
                     this.state.members.map(member => (
-                      <span key={member.id} className="badge badge-primary">{member.userName}</span>
+                      <span key={member.id} className="badge badge-primary">{member.userName} <i className="fas fa-times" onClick={() => this.removeMember(member)}></i></span>
                     )) :
                     <div><small><i>Your team has no members.</i></small></div>}
                 </div>

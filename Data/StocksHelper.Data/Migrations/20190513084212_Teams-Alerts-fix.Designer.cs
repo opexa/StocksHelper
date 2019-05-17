@@ -218,7 +218,7 @@ namespace StocksHelper.Data.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,10 +293,10 @@ namespace StocksHelper.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("StocksHelper.Data.Models.TeamParticipant", b =>
+            modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>
                 {
                     b.HasOne("StocksHelper.Data.Models.Team", "Team")
-                        .WithMany("Participants")
+                        .WithMany("Members")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 

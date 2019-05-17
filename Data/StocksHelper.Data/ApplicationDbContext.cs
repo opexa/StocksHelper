@@ -76,7 +76,7 @@
 					.OnDelete(DeleteBehavior.Restrict);
 		}
 
-		public virtual DbSet<TeamParticipant> TeamParticipants { get; set; }
+		public virtual DbSet<TeamMember> TeamMembers { get; set; }
 
 		public virtual DbSet<Team> Teams { get; set; }
 

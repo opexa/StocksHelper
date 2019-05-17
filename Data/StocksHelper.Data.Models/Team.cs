@@ -11,7 +11,7 @@ namespace StocksHelper.Data.Models
 	{
 		public Team()
 		{
-			this.Participants = new HashSet<TeamParticipant>();
+			this.Members = new HashSet<TeamMember>();
 			this.Alerts = new HashSet<Alert>();
 		}
 
@@ -23,7 +23,7 @@ namespace StocksHelper.Data.Models
 
 		public string TeamPhoto { get; set; }
 
-		public virtual ICollection<TeamParticipant> Participants { get; set; }
+		public virtual ICollection<TeamMember> Members { get; set; }
 
 		public virtual ICollection<Alert> Alerts { get; set; }
 	}

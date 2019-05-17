@@ -110,7 +110,11 @@ namespace StocksHelper.Web
 			services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 			services.AddScoped<ITeamsService, TeamsService>();
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc()
+							.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+							.AddJsonOptions(options => {
+								options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+							});
 			services.AddLogging();
 
 			// In production, the React files will be served from this directory

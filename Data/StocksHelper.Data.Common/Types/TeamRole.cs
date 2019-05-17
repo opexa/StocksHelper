@@ -4,6 +4,7 @@
 	{
 		Administrator = 0,
 		Moderator = 0,
-		Mentor = 0
+		Mentor = 0,
+		Member = 0
 	}
 }

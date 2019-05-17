@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom'
-import { DEFAULT_GROUP_PHOTO } from '../../constants/AppConstants';
+import * as DEFAULT_TEAM_PHOTO from '../../content/images/default-team-photo.jpg';
 
 export default class TeamsNavigation extends Component {
   componentDidMount = () => this.props.fetchMyTeams();
@@ -24,7 +24,7 @@ export default class TeamsNavigation extends Component {
               return (
                 <Link to={`/teams/my`} className={`nav-link team-link ${activeClassName}`} onClick={() => this.props.loadTeam(team.id)} key={team.id}>
                   <div className='d-flex'>
-                    <img src={team.teamPhoto || DEFAULT_GROUP_PHOTO} alt="" className='team-photo' />&nbsp;&nbsp;
+                    <img src={team.teamPhoto || DEFAULT_TEAM_PHOTO} alt="" className='team-photo' />&nbsp;&nbsp;
                     <span>{team.name}</span>
                   </div>
                 </Link>
