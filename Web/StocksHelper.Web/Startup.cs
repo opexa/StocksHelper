@@ -32,7 +32,6 @@ namespace StocksHelper.Web
 	using StocksHelper.Data.Repositories;
 	using StocksHelper.Data.Seeding;
 	using StocksHelper.Services.Logging.Extensions;
-	using StocksHelper.Services.Logging.Providers;
 	using StocksHelper.Services.Mapping;
 	using StocksHelper.Services.Models.Teams;
 	using StocksHelper.Web.Infrastructure.Middlewares.Auth;
@@ -54,7 +53,11 @@ namespace StocksHelper.Web
 			);
 
 			// Framework services
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				 options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+				 options.UseLazyLoadingProxies();
+			});
 
 			LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
 			services.AddDbContext<LoggingContext>();

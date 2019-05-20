@@ -1,5 +1,4 @@
 import * as actionTypes from '../constants/TeamsActionTypes';
-import notifications from '../infrastructure/notifications';
 
 const initialState = {
   myTeams: [],
@@ -13,7 +12,7 @@ export default function teams(state = initialState, action) {
       return {
         ...state,
         myTeams: action.myTeams,
-        selectedTeam: action.myTeams[0]
+        selectedTeam: action.myTeams[0] || {}
       };
     }
     case actionTypes.TEAM_FETCHED: {
@@ -55,8 +54,16 @@ export default function teams(state = initialState, action) {
       }
     }
     case actionTypes.CREATE_TEAM_ERROR: {
-      notifications.error(action.message);
       return state;
+    }
+    case actionTypes.TEAM_LEFT: {
+      const newState = {
+        ...state,
+        myTeams: state.myTeams.filter(team => team.id !== action.teamId)
+      }
+      newState.selectedTeam = newState.myTeams[0] || {};
+      
+      return newState;
     }
     default:
       return state;

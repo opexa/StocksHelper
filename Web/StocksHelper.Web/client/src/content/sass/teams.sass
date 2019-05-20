@@ -19,6 +19,32 @@
   i
     line-height: 45px
     font-size: 45px
+
+  .team-link
+    &:hover
+      .team-options
+        opacity: 1
+
+    .team-options
+      font-size: 23px
+      opacity: 0
+      cursor: pointer
+      color: #dee2e6
+      transition: all 0.15s ease-in-out
+      &:hover
+        color: #007bff
+      &:after
+        display: none
+
+    .dropdown-item
+      font-size: 1rem
+      line-height: 1.7rem
+
+  .team-link.active
+    &:hover
+      .team-options
+        color: #fff
+
   
 .team-selected, .create-team
   padding: 15px 20px

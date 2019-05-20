@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using StocksHelper.Data.Common.Models;
-
-namespace StocksHelper.Data.Models
+﻿namespace StocksHelper.Data.Models
 {
+	using System.ComponentModel.DataAnnotations;
+	using StocksHelper.Data.Common.Models;
+
 	public class TeamMember : BaseModel<int>
 	{
 		[Required]

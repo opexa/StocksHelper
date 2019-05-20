@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Authorized from './components/shared/hocs/Authorized';
 import Home from './components/Home';
 
 import Layout from './containers/Layout';
@@ -19,7 +20,7 @@ export default () => (
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/tester' component={Tester} />
-      <Route path='/teams' component={Teams} />
+      <Authorized path='/teams' component={Teams} />
 
       <Route path='/account/login' component={Login} />
       <Route path='/account/register' component={Register} />

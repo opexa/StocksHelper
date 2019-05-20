@@ -19,10 +19,9 @@ const handleResponse = response => {
 }
 
 
-function makeRequest(method, auth, body) {
-  let headers = {
-    // 'Content-Type': 'application/x-www-form-urlencoded'
-    'Content-Type': 'application/json'
+function makeRequest(method, auth, body, formData) {
+  let headers = { 
+    'Content-Type': formData ? 'application/x-www-form-urlencoded' : 'application/json'
   }
 
   if (auth) {
@@ -33,20 +32,22 @@ function makeRequest(method, auth, body) {
     method,
     headers
   };
-  
+
   if (body) {
-    options.body = JSON.stringify(body);
-    // options.body = body;
-  //   var formBody = [];
-  //   for (var prop in body) {
-  //     debugger
-  //     var encodedKey = encodeURIComponent(prop);
-  //     var encodedValue = encodeURIComponent(body[prop]);
-  //     formBody.push(encodedKey + "=" + encodedValue);
-  //   }
-  //   options.body = formBody.join("&");
+    if (formData) {
+      var formBody = [];
+      for (var prop in body) {
+        var encodedKey = encodeURIComponent(prop);
+        var encodedValue = encodeURIComponent(body[prop]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      options.body = formBody.join("&");
+    }
+    else {
+      options.body = JSON.stringify(body);
+    }
   }
-  
+
   return options;
 }
 
@@ -55,13 +56,13 @@ const get = (endpoint, auth) => {
   return fetch(endpoint, options).then(handleResponse);
 }
 
-const post = (endpoint, auth, data) => {
-  let options = makeRequest('POST', auth, data);
+const post = (endpoint, auth, data, formData = false) => {
+  let options = makeRequest('POST', auth, data, formData);
   return fetch(endpoint, options).then(handleResponse);
 }
 
-const update = (endpoint, auth, data) => {
-  let options = makeRequest('PUT', auth, data);
+const update = (endpoint, auth, data, formData = false) => {
+  let options = makeRequest('PUT', auth, data, formData);
   return fetch(endpoint, options).then(handleResponse);
 }
 

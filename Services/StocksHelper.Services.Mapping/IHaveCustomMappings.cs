@@ -1,9 +1,8 @@
-﻿
-namespace StocksHelper.Services.Mapping
+﻿namespace StocksHelper.Services.Mapping
 {
 	using AutoMapper;
 
-	interface IHaveCustomMappings
+	public interface IHaveCustomMappings
 	{
 		void CreateMappings(IMapperConfigurationExpression configuration);
 	}

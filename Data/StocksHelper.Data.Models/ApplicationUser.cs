@@ -12,7 +12,6 @@ namespace StocksHelper.Data.Models
 		{
 			this.Id = Guid.NewGuid().ToString();
 			this.Alerts = new HashSet<Alert>();
-			this.TeamsIn = new HashSet<Team>();
 		}
 
 		public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
@@ -22,7 +21,5 @@ namespace StocksHelper.Data.Models
 		public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
 		public virtual ICollection<Alert> Alerts { get; set; }
-
-		public virtual ICollection<Team> TeamsIn { get; set; }
 	}
 }

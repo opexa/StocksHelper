@@ -15,8 +15,9 @@
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 				: base(options)
 		{
+			
 		}
-		
+
 		public override int SaveChanges() => this.SaveChanges(true);
 
 		public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -42,7 +43,7 @@
 			ConfigureUserIdentityRelations(builder);
 
 			var entityTypes = builder.Model.GetEntityTypes().ToList();
-			
+
 			// Disable cascade delete
 			var foreignKeys = entityTypes
 					.SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));

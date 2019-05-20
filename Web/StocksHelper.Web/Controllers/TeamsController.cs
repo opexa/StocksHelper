@@ -1,4 +1,5 @@
 ﻿using StocksHelper.Web.Infrastructure.Extensions;
+using StocksHelper.Web.Models;
 
 namespace StocksHelper.Web.Controllers
 {
@@ -64,6 +65,18 @@ namespace StocksHelper.Web.Controllers
 			var suggestions = this.teamsService.GetMemberSuggestions(input);
 
 			return Ok(suggestions);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Leave([FromBody]LeaveTeamInputModel model)
+		{
+			string loggedUserId = this.User.GetUserId();
+			var result = await this.teamsService.Leave(loggedUserId, model.Id);
+
+			if (result > 0)
+				return Ok(new { teamId = model.Id });
+
+			return BadRequest("Team was not found.");
 		}
 	}
 }

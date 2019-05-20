@@ -1,11 +1,10 @@
-﻿using StocksHelper.Services.Mapping;
-using StocksHelper.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StocksHelper.Services.Models.Teams
+﻿namespace StocksHelper.Services.Models.Teams
 {
+	using System.Linq;
+	using AutoMapper;
+	using StocksHelper.Data.Models;
+	using StocksHelper.Services.Mapping;
+
 	public class TeamViewModel : IMapFrom<Team>
 	{
 		public int Id { get; set; }
@@ -15,5 +14,7 @@ namespace StocksHelper.Services.Models.Teams
 		public bool IsPrivate { get; set; }
 
 		public string TeamPhoto { get; set; }
+
+		public string RoleInTeam { get; set; }
 	}
 }

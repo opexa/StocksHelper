@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using StocksHelper.Services.Models.Users;
+﻿using System;
 
 namespace StocksHelper.Services.DataServices
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.EntityFrameworkCore;
+	using StocksHelper.Services.Models.Users;
 	using StocksHelper.Common;
 	using StocksHelper.Data.Common.Repositories;
 	using StocksHelper.Data.Models;
@@ -18,11 +18,13 @@ namespace StocksHelper.Services.DataServices
 	{
 		private readonly IRepository<Team> teamsRepository;
 		private readonly UserManager<ApplicationUser> userManager;
+		private readonly IRepository<TeamMember> teamsMembersRepository;
 
-		public TeamsService(IRepository<Team> teamsRepository, UserManager<ApplicationUser> userManager)
+		public TeamsService(IRepository<Team> teamsRepository, IRepository<TeamMember> teamMembersRepository, UserManager<ApplicationUser> userManager)
 		{
 			this.teamsRepository = teamsRepository;
 			this.userManager = userManager;
+			this.teamsMembersRepository = teamMembersRepository;
 		}
 
 		public IEnumerable<TeamViewModel> Search(string name)
@@ -89,6 +91,22 @@ namespace StocksHelper.Services.DataServices
 																							.ToList();
 
 			return suggestions;
+		}
+
+		public async Task<int> Leave(string userId, int teamId)
+		{
+			var team = await this.teamsRepository.All().Where(t => t.Id == teamId && t.Members.Any(m => m.UserId == userId)).FirstOrDefaultAsync();
+			if (team != null)
+			{
+				this.teamsMembersRepository.Delete(team.Members.Where(t => t.UserId == userId).FirstOrDefault());
+
+				if (team.Members.Count() == 1)
+					this.teamsRepository.Delete(team);
+
+				return await this.teamsMembersRepository.SaveChangesAsync();
+			}
+
+			return -1;
 		}
 	}
 }

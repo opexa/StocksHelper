@@ -1,0 +1,53 @@
+a.navbar-brand 
+  white-space: normal
+  text-align: center
+  word-break: break-all
+
+a.navbar-brand img 
+  max-width: 50px
+  max-height: 50px
+
+html 
+  font-size: 14px
+
+@media (min-width: 768px) 
+  html 
+    font-size: 16px
+
+.box-shadow 
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05)
+
+body 
+  padding-top: 6rem
+
+.prompt-wrapper
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 0
+  z-index: 9999
+
+  .prompt
+    margin: 20px auto 0
+    width: 95%
+    transform: translateY(-500px)
+    max-width: 500px
+    background: #fff
+    padding: 15px 20px
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05)
+    transition: all 0.4s ease-in-out
+
+    .prompt-controls
+      margin-top: 20px
+      width: 100%
+      text-align: right
+
+      div
+        margin: 0 5px
+        cursor: pointer
+
+.prompt-wrapper.visible
+  height: 100vh
+  .prompt
+    transform: translateY(0)

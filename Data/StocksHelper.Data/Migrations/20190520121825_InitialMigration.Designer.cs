@@ -10,8 +10,8 @@ using StocksHelper.Data;
 namespace StocksHelper.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190513083117_Teams-And-Alerts-Added")]
-    partial class TeamsAndAlertsAdded
+    [Migration("20190520121825_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,21 +113,44 @@ namespace StocksHelper.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Notes")
                         .IsRequired();
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int?>("TeamId");
+                    b.Property<int>("TeamId");
 
                     b.Property<string>("Ticker")
                         .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("TeamId");
 
                     b.ToTable("Alerts");
+                });
+
+            modelBuilder.Entity("StocksHelper.Data.Models.ApplicationLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("LogLevel");
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("StocksHelper.Data.Models.ApplicationRole", b =>
@@ -211,7 +234,12 @@ namespace StocksHelper.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<bool>("IsPrivate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("TeamPhoto");
 
                     b.HasKey("Id");
 
@@ -237,7 +265,7 @@ namespace StocksHelper.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TeamParticipants");
+                    b.ToTable("TeamMembers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -287,9 +315,14 @@ namespace StocksHelper.Data.Migrations
 
             modelBuilder.Entity("StocksHelper.Data.Models.Alert", b =>
                 {
-                    b.HasOne("StocksHelper.Data.Models.Team")
+                    b.HasOne("StocksHelper.Data.Models.ApplicationUser")
                         .WithMany("Alerts")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("StocksHelper.Data.Models.Team", "Team")
+                        .WithMany("Alerts")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>

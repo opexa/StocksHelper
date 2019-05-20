@@ -7,6 +7,7 @@ export const FETCH_MY_TEAMS_URL = `${API_BASE_URL}/api/teams/fetchmyteams`;
 export const LOAD_MY_TEAM_URL = `${API_BASE_URL}/api/teams/load`;
 export const SUGGEST_MEMBER_URL = `${API_BASE_URL}/api/teams/suggestmember?input=`;
 export const CREATE_TEAM_URL = `${API_BASE_URL}/api/teams/create`;
+export const LEAVE_TEAM_URL = `${API_BASE_URL}/api/teams/leave`;
 
 export const FILL_ALL_FIELDS = 'Please fill all fields.';
 export const PASSWORDS_DONT_MATCH = 'Passwords don\'t match.';

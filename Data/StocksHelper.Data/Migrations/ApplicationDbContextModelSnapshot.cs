@@ -232,8 +232,6 @@ namespace StocksHelper.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<bool>("IsPrivate");
 
                     b.Property<string>("Name")
@@ -242,8 +240,6 @@ namespace StocksHelper.Data.Migrations
                     b.Property<string>("TeamPhoto");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Teams");
                 });
@@ -325,13 +321,6 @@ namespace StocksHelper.Data.Migrations
                         .WithMany("Alerts")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("StocksHelper.Data.Models.Team", b =>
-                {
-                    b.HasOne("StocksHelper.Data.Models.ApplicationUser")
-                        .WithMany("TeamsIn")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("StocksHelper.Data.Models.TeamMember", b =>

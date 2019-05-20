@@ -3,7 +3,8 @@ import {
   FETCH_MY_TEAMS_URL,
   LOAD_MY_TEAM_URL,
   SUGGEST_MEMBER_URL,
-  CREATE_TEAM_URL
+  CREATE_TEAM_URL,
+  LEAVE_TEAM_URL
 } from '../constants/AppConstants';
 
 export default {
@@ -18,5 +19,8 @@ export default {
   },
   create: async (team) => {
     return await httpClient.post(CREATE_TEAM_URL, true, team);
+  },
+  leave: async (team) => {
+    return await httpClient.post(LEAVE_TEAM_URL, true, team);
   }
 }

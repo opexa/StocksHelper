@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   resetSelectedTeam: teamsActions.resetSelectedTeam,
   suggestMembers: teamsActions.suggestMembers,
   clearMemberSuggestions: teamsActions.clearMemberSuggestions,
-  createTeam: teamsActions.createTeam
+  createTeam: teamsActions.createTeam,
+  leaveTeam: teamsActions.leaveTeam
 }, dispatch)
 
 export default connect(

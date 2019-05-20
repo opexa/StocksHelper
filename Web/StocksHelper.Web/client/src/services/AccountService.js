@@ -3,9 +3,9 @@ import { LOGIN_URL, REGISTER_URL } from '../constants/AppConstants';
 
 export default {
   login: async (credientials) => {
-    return await httpClient.post(LOGIN_URL, false, credientials);
+    return await httpClient.post(LOGIN_URL, false, credientials, true);
   },
   register: async (credientials) => {
-    return await httpClient.post(REGISTER_URL, false, credientials);
+    return await httpClient.post(REGISTER_URL, false, credientials, true);
   }
 }

@@ -12,7 +12,8 @@ export default (props) => (
     <TeamsNavigation fetchMyTeams={props.fetchMyTeams}
                       myTeams={props.myTeams}
                       loadTeam={props.loadTeam}
-                      selectedTeamId={props.selectedTeam.id} />
+                      selectedTeamId={props.selectedTeam.id}
+                      leaveTeam={props.leaveTeam} />
     <Route path={`${props.match.url}/my`} 
             render={(routeProps) => <TeamChat team={props.selectedTeam} 
                                               loadTeam={props.loadTeam} 
