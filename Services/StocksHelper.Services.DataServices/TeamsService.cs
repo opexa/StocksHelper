@@ -84,10 +84,10 @@ namespace StocksHelper.Services.DataServices
 			return team;
 		}
 
-		public IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name)
+		public IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name, string loggedUserId)
 		{
-			var suggestions = this.userManager.Users.Where(u => u.UserName.Contains(name))
-																							.To<UserSimpleViewModel>().Take(10)
+			var suggestions = this.userManager.Users.Where(u => u.UserName.Contains(name) && u.Id != loggedUserId)
+																							.To<UserSimpleViewModel>().Take(15)
 																							.ToList();
 
 			return suggestions;

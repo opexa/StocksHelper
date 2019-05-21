@@ -25,9 +25,6 @@ const Navbar = ({ toggle, isOpened, isAuthorized }) => {
                   <NavLink className="dropdown-item" tag={Link} to='/teams/my'>My teams</NavLink>
                 </div>
               </li>
-              <li className="nav-item">
-                <NavLink tag={Link} className='text-dark' to='/tester'>Tester</NavLink>
-              </li>
             </ul>
             <ul className="navbar-nav my-2 my-lg-0">
               <Authorization isAuthorized={isAuthorized} />

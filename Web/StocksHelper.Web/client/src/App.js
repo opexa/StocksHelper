@@ -4,7 +4,6 @@ import Authorized from './components/shared/hocs/Authorized';
 import Home from './components/Home';
 
 import Layout from './containers/Layout';
-import Tester from './containers/Tester';
 import Login from './containers/account/Login';
 import Logout from './containers/account/Logout';
 import Register from './containers/account/Register';
@@ -19,7 +18,6 @@ export default () => (
   <Layout>
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/tester' component={Tester} />
       <Authorized path='/teams' component={Teams} />
 
       <Route path='/account/login' component={Login} />

@@ -62,7 +62,8 @@ namespace StocksHelper.Web.Controllers
 		[HttpGet]
 		public IActionResult SuggestMember(string input)
 		{
-			var suggestions = this.teamsService.GetMemberSuggestions(input);
+			string loggedUserId = this.User.GetUserId();
+			var suggestions = this.teamsService.GetMemberSuggestions(input, loggedUserId);
 
 			return Ok(suggestions);
 		}
