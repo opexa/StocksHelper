@@ -1,7 +1,4 @@
-using Microsoft.Extensions.Logging;
-using StocksHelper.Services.DataServices;
-using StocksHelper.Services.Logging;
-using StocksHelper.Services.Models.Users;
+using StocksHelper.Services.Models.Alerts;
 
 namespace StocksHelper.Web
 {
@@ -24,6 +21,7 @@ namespace StocksHelper.Web
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Options;
 	using Microsoft.IdentityModel.Tokens;
+	using Microsoft.Extensions.Logging;
 	using Newtonsoft.Json;
 	using StocksHelper.Common;
 	using StocksHelper.Data;
@@ -34,6 +32,9 @@ namespace StocksHelper.Web
 	using StocksHelper.Services.Logging.Extensions;
 	using StocksHelper.Services.Mapping;
 	using StocksHelper.Services.Models.Teams;
+	using StocksHelper.Services.DataServices;
+	using StocksHelper.Services.Logging;
+	using StocksHelper.Services.Models.Users;
 	using StocksHelper.Web.Infrastructure.Middlewares.Auth;
 
 	public class Startup
@@ -49,14 +50,16 @@ namespace StocksHelper.Web
 		{
 			AutoMapperConfig.RegisterMappings(
 				typeof(TeamViewModel).Assembly,
-				typeof(UserSimpleViewModel).Assembly
+				typeof(UserSimpleViewModel).Assembly,
+				typeof(AlertViewModel).Assembly,
+				typeof(AlertInputModel).Assembly
 			);
 
 			// Framework services
 			services.AddDbContext<ApplicationDbContext>(options =>
 			{
-				 options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
-				 options.UseLazyLoadingProxies();
+				options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+				options.UseLazyLoadingProxies();
 			});
 
 			LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
@@ -112,13 +115,21 @@ namespace StocksHelper.Web
 
 			services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 			services.AddScoped<ITeamsService, TeamsService>();
+			services.AddScoped<IAlertsService, AlertsService>();
+			services.AddScoped<IQuotesService, QuotesService>();
 
 			services.AddMvc()
 							.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-							.AddJsonOptions(options => {
+							.AddJsonOptions(options =>
+							{
 								options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 							});
 			services.AddLogging();
+
+			services.AddHttpClient("aplhavantage", c =>
+			{
+				c.BaseAddress = new Uri(configuration["AlphaVantagetApiEndpoint"]);
+			});
 
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
@@ -130,7 +141,7 @@ namespace StocksHelper.Web
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(
 			IApplicationBuilder app,
-			IHostingEnvironment env, 
+			IHostingEnvironment env,
 			ILoggerFactory loggingFactory
 		)
 		{

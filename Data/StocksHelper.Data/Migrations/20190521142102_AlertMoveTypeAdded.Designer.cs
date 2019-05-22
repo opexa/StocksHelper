@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StocksHelper.Data;
 
 namespace StocksHelper.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190521142102_AlertMoveTypeAdded")]
+    partial class AlertMoveTypeAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,23 +113,23 @@ namespace StocksHelper.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedById");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<int>("MoveType");
 
-                    b.Property<string>("Notes");
+                    b.Property<string>("Notes")
+                        .IsRequired();
 
                     b.Property<decimal>("Price");
 
                     b.Property<int>("TeamId");
 
                     b.Property<string>("Ticker")
-                        .IsRequired()
-                        .HasMaxLength(5);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("TeamId");
 
@@ -315,10 +317,9 @@ namespace StocksHelper.Data.Migrations
 
             modelBuilder.Entity("StocksHelper.Data.Models.Alert", b =>
                 {
-                    b.HasOne("StocksHelper.Data.Models.TeamMember", "CreatedBy")
-                        .WithMany("TeamAlerts")
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("StocksHelper.Data.Models.ApplicationUser")
+                        .WithMany("Alerts")
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("StocksHelper.Data.Models.Team", "Team")
                         .WithMany("Alerts")

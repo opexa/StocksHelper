@@ -7,6 +7,6 @@ namespace StocksHelper.Data.Models
 	public enum AlertMoveType
 	{
 		MovesAbove = 0,
-		MovesBelow = 0
+		MovesBelow = 1
 	}
 }

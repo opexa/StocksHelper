@@ -58,6 +58,9 @@ const leaveTeam = (team) => (dispatch) => {
     .catch(({ message }) => dispatch({ type: APP_ERROR, message }));
 }
 
+const createTeamOpened = () => (dispatch) => dispatch({ type: actionTypes.CREATE_TEAM_OPENED });
+const createTeamClosed = () => (dispatch) => dispatch({ type: actionTypes.CREATE_TEAM_CLOSED });
+
 export default {
   fetchMyTeams,
   loadTeam,
@@ -65,5 +68,7 @@ export default {
   suggestMembers,
   clearMemberSuggestions,
   createTeam,
-  leaveTeam
+  leaveTeam,
+  createTeamOpened,
+  createTeamClosed
 }

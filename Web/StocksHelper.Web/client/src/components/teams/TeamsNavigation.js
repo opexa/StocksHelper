@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom'
 import * as DEFAULT_TEAM_PHOTO from '../../content/images/default-team-photo.jpg';
-import Prompt from '../shared/Prompt';
+import Prompt from '../shared/hocs/Prompt';
 
 export default class TeamsNavigation extends Component {
   constructor(props) {
@@ -12,8 +12,6 @@ export default class TeamsNavigation extends Component {
       promptTeamId: null
     }
   }
-
-  componentDidMount = () => this.props.fetchMyTeams();
 
   openOptions = (ev) => {
     ev.stopPropagation();
@@ -43,7 +41,7 @@ export default class TeamsNavigation extends Component {
                 </div>
               </NavLink>
               {this.props.myTeams.map((team, i) => {
-                let activeClassName = team.id === this.props.selectedTeamId ? 'active' : '';
+                let activeClassName = this.props.isCreateTeamOpened ? '' : (team.id === this.props.selectedTeamId ? 'active' : '');
 
                 return (
                   <Link to={`/teams/my`} className={`nav-link team-link ${activeClassName}`} onClick={() => this.props.loadTeam(team.id)} key={team.id}>

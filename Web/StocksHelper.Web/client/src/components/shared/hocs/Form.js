@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const formControls = ['input', 'textarea', 'select'];
+
 export default class Form extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ export default class Form extends Component {
           return (
             <div className={child.props.className}>
               {React.Children.map(child.props.children, (subchild) => {
-                if (subchild.type === 'input' && subchild.props.name) {
+                if (formControls.indexOf(subchild.type) > -1 && subchild.props.name) {
                   return React.cloneElement(subchild, {
                     onChange: (ev) => {
                       if (subchild.props.onChange !== undefined) {
@@ -49,12 +51,12 @@ const stateFromChildren = (children) => {
   let state = {};
 
   React.Children.forEach(children, (child) => {
-    if (child.type === 'input' && child.props.name) {
+    if (formControls.indexOf(child.type) > -1 && child.props.name) {
       state[child.props.name] = '';
     }
     else if (child.type === 'div') {
       React.Children.forEach(child.props.children, (subchild) => {
-        if (subchild.type === 'input' && subchild.props.name) {
+        if (formControls.indexOf(subchild.type) > -1 && subchild.props.name) {
           state[subchild.props.name] = '';
         }
       });

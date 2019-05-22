@@ -1,9 +1,14 @@
 import * as actionTypes from '../constants/TeamsActionTypes';
+import {
+  TEAM_ALERT_ADDED,
+  ADD_TEAM_ALERT_FAIL
+} from '../constants/AlertsActionTypes';
 
 const initialState = {
   myTeams: [],
   selectedTeam: {},
-  memberSuggestions: []
+  memberSuggestions: [],
+  isCreateTeamOpened: false
 }
 
 export default function teams(state = initialState, action) {
@@ -21,14 +26,7 @@ export default function teams(state = initialState, action) {
         selectedTeam: action.team
       }
     }
-    case actionTypes.SELECTED_TEAM_RESET: {
-      return {
-        ...state,
-        selectedTeam: {},
-        memberSuggestions: []
-      }
-    }
-    case actionTypes.LOAD_FIRST_TEAM: {      
+    case actionTypes.LOAD_FIRST_TEAM: {
       return {
         ...state,
         selectedTeam: state.myTeams[0] || {}
@@ -62,9 +60,24 @@ export default function teams(state = initialState, action) {
         myTeams: state.myTeams.filter(team => team.id !== action.teamId)
       }
       newState.selectedTeam = newState.myTeams[0] || {};
-      
+
       return newState;
     }
+    case actionTypes.CREATE_TEAM_OPENED: {
+      return {
+        ...state,
+        selectedTeam: {},
+        memberSuggestions: [],
+        isCreateTeamOpened: true 
+      }
+    }
+    case actionTypes.CREATE_TEAM_CLOSED: {
+      return {
+        ...state,
+        isCreateTeamOpened: false
+      }
+    }
+    
     default:
       return state;
   }

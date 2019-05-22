@@ -13,6 +13,7 @@ namespace StocksHelper.Services.DataServices
 	using StocksHelper.Data.Models;
 	using StocksHelper.Services.Mapping;
 	using StocksHelper.Services.Models.Teams;
+	using AutoMapper;
 
 	public class TeamsService : ITeamsService
 	{
@@ -37,7 +38,7 @@ namespace StocksHelper.Services.DataServices
 			return teams;
 		}
 
-		public async Task<Team> Create(TeamInputModel model, string creatorId)
+		public async Task<TeamViewModel> Create(TeamInputModel model, string creatorId)
 		{
 			Team team = new Team() { Name = model.Name };
 			team.Members.Add(new TeamMember { UserId = creatorId, TeamRole = TeamRole.Administrator });
@@ -54,7 +55,9 @@ namespace StocksHelper.Services.DataServices
 			this.teamsRepository.Add(team);
 			await this.teamsRepository.SaveChangesAsync();
 
-			return team;
+			var viewModel = Mapper.Map<TeamViewModel>(team);
+
+			return viewModel;
 		}
 
 		public TeamViewModel Get(int id)

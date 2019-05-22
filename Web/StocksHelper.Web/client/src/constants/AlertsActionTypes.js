@@ -1,0 +1,2 @@
+export const TEAM_ALERT_ADDED = 'TEAM_ALERT_ADDED';
+export const ADD_TEAM_ALERT_FAIL = 'ADD_TEAM_ALERT_FAIL';

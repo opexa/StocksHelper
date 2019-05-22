@@ -8,7 +8,7 @@
 
 	public interface ITeamsService
 	{
-		Task<Team> Create(TeamInputModel team, string creatorId);
+		Task<TeamViewModel> Create(TeamInputModel team, string creatorId);
 
 		TeamViewModel Get(int id);
 

@@ -16,10 +16,14 @@ export default class CreateTeam extends Component {
     };
   }
 
-  componentWillUnmount = () => document.removeEventListener('mousedown', this.handleClickOutside);
+  componentWillUnmount = () => {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    this.props.createTeamClosed();
+  }
+
   componentDidMount = () => {
-    this.props.resetNavigation()
     document.addEventListener('mousedown', this.handleClickOutside);
+    this.props.createTeamOpened();
   }
 
   createTeam = (ev) => {

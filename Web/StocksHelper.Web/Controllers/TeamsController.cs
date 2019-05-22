@@ -36,8 +36,8 @@ namespace StocksHelper.Web.Controllers
 				return BadRequest(ModelState);
 
 			string loggedUserId = this.User.GetUserId();
-			Team team = await this.teamsService.Create(inputModel, loggedUserId);
-
+			TeamViewModel team = await this.teamsService.Create(inputModel, loggedUserId);
+			
 			return Ok(team);
 		}
 

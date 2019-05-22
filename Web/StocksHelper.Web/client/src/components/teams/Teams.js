@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import TeamChat from './TeamChat';
@@ -7,22 +7,30 @@ import TeamsNavigation from './TeamsNavigation';
 import '../../content/css/teams.css';
 import CreateTeam from './CreateTeam';
 
-export default (props) => (
-  <div className="row d-block">
-    <TeamsNavigation fetchMyTeams={props.fetchMyTeams}
-                      myTeams={props.myTeams}
-                      loadTeam={props.loadTeam}
-                      selectedTeamId={props.selectedTeam.id}
-                      leaveTeam={props.leaveTeam} />
-    <Route path={`${props.match.url}/my`} 
-            render={(routeProps) => <TeamChat team={props.selectedTeam} 
-                                              loadTeam={props.loadTeam} 
-                                              {...routeProps} />} />
-    <Route path={`${props.match.url}/create`}
-            render={() => <CreateTeam resetNavigation={props.resetSelectedTeam} 
-                                      suggestMembers={props.suggestMembers} 
-                                      memberSuggestions={props.memberSuggestions}
-                                      clearSuggestions={props.clearMemberSuggestions}
-                                      createTeam={props.createTeam} /> } />
-  </div>
-);
+export default class Teams extends Component {
+  componentDidMount = () => this.props.fetchMyTeams();
+
+  render() {
+    return (
+      <div className="row d-block">
+        <TeamsNavigation myTeams={this.props.myTeams}
+                          loadTeam={this.props.loadTeam}
+                          selectedTeamId={this.props.selectedTeam.id}
+                          leaveTeam={this.props.leaveTeam}
+                          isCreateTeamOpened={this.props.isCreateTeamOpened} />
+        <Route path={`${this.props.match.url}/my`}
+                render={() => <TeamChat team={this.props.selectedTeam}
+                                        loadTeam={this.props.loadTeam}
+                                        addTeamAlert={this.props.addTeamAlert} />} />
+        <Route path={`${this.props.match.url}/create`}
+                render={() => <CreateTeam createTeamOpened={this.props.createTeamOpened}
+                                          createTeamClosed={this.props.createTeamClosed}
+                                          suggestMembers={this.props.suggestMembers}
+                                          memberSuggestions={this.props.memberSuggestions}
+                                          clearSuggestions={this.props.clearMemberSuggestions}
+                                          createTeam={this.props.createTeam} />} />
+      </div>
+    );
+  }
+}
+
