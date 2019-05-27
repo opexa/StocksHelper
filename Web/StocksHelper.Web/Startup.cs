@@ -1,5 +1,3 @@
-using StocksHelper.Services.Models.Alerts;
-
 namespace StocksHelper.Web
 {
 	using System;
@@ -32,9 +30,10 @@ namespace StocksHelper.Web
 	using StocksHelper.Services.Logging.Extensions;
 	using StocksHelper.Services.Mapping;
 	using StocksHelper.Services.Models.Teams;
+	using StocksHelper.Services.Models.Alerts;
+	using StocksHelper.Services.Models.Users;
 	using StocksHelper.Services.DataServices;
 	using StocksHelper.Services.Logging;
-	using StocksHelper.Services.Models.Users;
 	using StocksHelper.Web.Infrastructure.Middlewares.Auth;
 
 	public class Startup

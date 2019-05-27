@@ -51,10 +51,10 @@ namespace StocksHelper.Web.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Load(int id)
+		public IActionResult Load(int id)
 		{
 			string loggedUserId = this.User.GetUserId();
-			var team = await this.teamsService.LoadTeam(id, loggedUserId);
+			var team = this.teamsService.LoadTeam(id, loggedUserId);
 
 			return Ok(team);
 		}

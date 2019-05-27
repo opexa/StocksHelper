@@ -7,7 +7,12 @@ import teamsService from '../services/TeamsService';
 const fetchMyTeams = () => (dispatch) => {
   teamsService
     .fetchMyTeams()
-    .then(myTeams => dispatch({ type: actionTypes.MY_TEAMS_FETCHED, myTeams }))
+    .then(myTeams =>  {
+      dispatch({ type: actionTypes.MY_TEAMS_FETCHED, myTeams });
+      
+      if (myTeams.length > 0) 
+        loadTeam(myTeams[0].id)(dispatch);
+    })
     .catch(({ message }) => dispatch({ type: APP_ERROR, message }));
 }
 

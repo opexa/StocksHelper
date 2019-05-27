@@ -21,7 +21,8 @@ export default class Teams extends Component {
         <Route path={`${this.props.match.url}/my`}
                 render={() => <TeamChat team={this.props.selectedTeam}
                                         loadTeam={this.props.loadTeam}
-                                        addTeamAlert={this.props.addTeamAlert} />} />
+                                        addTeamAlert={this.props.addTeamAlert}
+                                        deleteTeamAlert={this.props.deleteTeamAlert} />} />
         <Route path={`${this.props.match.url}/create`}
                 render={() => <CreateTeam createTeamOpened={this.props.createTeamOpened}
                                           createTeamClosed={this.props.createTeamClosed}

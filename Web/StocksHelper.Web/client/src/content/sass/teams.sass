@@ -124,3 +124,27 @@
     text-transform: uppercase
     &::placeholder
       text-transform: none
+
+.team-alerts
+  .alerts-container
+    margin-top: 10px
+
+.team-alert
+  margin-bottom: 7px 
+  padding-left: 10px
+  border-left: 2px solid #007bff
+  &:hover
+    .delete-alert-btn
+      opacity: 1
+
+  .delete-alert-btn
+    margin-left: 5px
+    font-size: 85%
+    color: #dc3545
+    opacity: 0
+    transition: all 0.15s ease-in-out
+    cursor: pointer
+
+  .alert-ticker
+    text-transform: uppercase
+    margin-bottom: 0px

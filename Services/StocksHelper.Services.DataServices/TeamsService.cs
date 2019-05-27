@@ -71,20 +71,30 @@ namespace StocksHelper.Services.DataServices
 		{
 			var myTeams = this.teamsRepository.All()
 											.Where(t => t.Members.Any(p => p.UserId == userId))
+											.Include(t => t.Alerts)
 											.To<TeamViewModel>()
 											.ToList();
 
 			return myTeams;
 		}
 
-		public async Task<TeamViewModel> LoadTeam(int id, string userId)
+		public TeamViewModel LoadTeam(int id, string userId)
 		{
-			var team = await this.teamsRepository.All()
-														.Where(t => t.Id == id && t.Members.Any(p => p.UserId == userId))
-														.To<TeamViewModel>()
-														.FirstOrDefaultAsync();
+			var team = this.teamsRepository.All()
+				.Where(t => t.Id == id && t.Members.Any(p => p.UserId == userId))
+				.FirstOrDefault();
 
-			return team;
+			var teamViewModel = Mapper.Map<Team, TeamViewModel>(team, opt => 
+				opt.AfterMap((src, dest) =>
+				{
+					foreach (var alert in dest.Alerts)
+					{
+						if (alert.CreatedByUserId == userId)
+							alert.IsCreatedByIssuer = true;
+					}
+				}));
+
+			return teamViewModel;
 		}
 
 		public IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name, string loggedUserId)

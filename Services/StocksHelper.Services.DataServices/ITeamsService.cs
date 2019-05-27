@@ -16,7 +16,7 @@
 
 		IEnumerable<TeamViewModel> GetMyTeams(string userId);
 
-		Task<TeamViewModel> LoadTeam(int teamId, string userId);
+		TeamViewModel LoadTeam(int teamId, string userId);
 
 		IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name, string loggedUserId);
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as DEFAULT_TEAM_PHOTO from '../../content/images/default-team-photo.jpg';
 import AddAlertForm from './AddAlertForm';
+import TeamAlerts from './TeamAlerts';
 
 export default class TeamChat extends Component {
   constructor(props) {
@@ -42,12 +43,9 @@ export default class TeamChat extends Component {
             </div>
           </div>
           <hr />
-          <div className="team-alerts">
-            <div className='d-flex'>
-              <h5>Team alerts</h5>
-              <span className="btn btn-outline-success btn-sm add-alert-btn" onClick={this.openAddAlertForm}>+ ADD</span>
-            </div>
-          </div>
+          <TeamAlerts alerts={this.props.team.alerts} 
+                      deleteTeamAlert={this.props.deleteTeamAlert}
+                      openAddAlertForm={this.openAddAlertForm} />          
         </div>
         {this.state.showAddAlertForm ? <AddAlertForm onClose={this.closeAddAlertForm} onSubmit={this.handleFormSubmit} /> : ''}
       </div>

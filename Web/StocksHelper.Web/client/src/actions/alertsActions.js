@@ -9,6 +9,17 @@ const addTeamAlert = (alert) => (dispatch) => {
     .catch(({message}) => notifications.error(message));
 }
 
+const deleteTeamAlert = (alertId) => (dispatch) => {
+  alertsService
+    .deleteTeamAlert(alertId)
+    .then(() => {
+      notifications.alert('Team alert was deleted successfully.');
+      dispatch({ type: actionTypes.TEAM_ALERT_DELETED, alertId });
+    })
+    .catch(({ message }) => notifications.error(message));
+}
+
 export default {
-  addTeamAlert
+  addTeamAlert,
+  deleteTeamAlert
 }

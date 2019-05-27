@@ -1,8 +1,5 @@
 import * as actionTypes from '../constants/TeamsActionTypes';
-import {
-  TEAM_ALERT_ADDED,
-  ADD_TEAM_ALERT_FAIL
-} from '../constants/AlertsActionTypes';
+import { TEAM_ALERT_DELETED } from '../constants/AlertsActionTypes';
 
 const initialState = {
   myTeams: [],
@@ -16,8 +13,7 @@ export default function teams(state = initialState, action) {
     case actionTypes.MY_TEAMS_FETCHED: {
       return {
         ...state,
-        myTeams: action.myTeams,
-        selectedTeam: action.myTeams[0] || {}
+        myTeams: action.myTeams
       };
     }
     case actionTypes.TEAM_FETCHED: {
@@ -51,9 +47,6 @@ export default function teams(state = initialState, action) {
         selectedTeam: action.newTeam
       }
     }
-    case actionTypes.CREATE_TEAM_ERROR: {
-      return state;
-    }
     case actionTypes.TEAM_LEFT: {
       const newState = {
         ...state,
@@ -77,7 +70,15 @@ export default function teams(state = initialState, action) {
         isCreateTeamOpened: false
       }
     }
-    
+    case TEAM_ALERT_DELETED: {
+      return {
+        ...state,
+        selectedTeam: {
+          ...state.selectedTeam,
+          alerts: state.selectedTeam.alerts.filter(alert => alert.id !== action.alertId)
+        }
+      }
+    }
     default:
       return state;
   }
