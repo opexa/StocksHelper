@@ -1,24 +1,27 @@
-﻿using StocksHelper.Web.Infrastructure.Extensions;
-
-namespace StocksHelper.Web.Controllers
+﻿namespace StocksHelper.Web.Controllers
 {
 	using System.Threading.Tasks;
 	using Microsoft.AspNetCore.Mvc;
 	using StocksHelper.Services.DataServices;
 	using StocksHelper.Services.Models.Alerts;
+	using StocksHelper.Web.Hubs;
+	using StocksHelper.Web.Infrastructure.Extensions;
 
 	public class AlertsController : BaseController
 	{
 		private readonly IAlertsService alertsService;
 		private readonly IQuotesService quotesService;
+		private readonly AlertsHub alertsHub;
 
 		public AlertsController(
 			IAlertsService alertService,
-			IQuotesService quotesService
+			IQuotesService quotesService,
+			AlertsHub alertsHub
 		)
 		{
 			this.alertsService = alertService;
 			this.quotesService = quotesService;
+			this.alertsHub = alertsHub;
 		}
 
 		[HttpPost]
@@ -30,6 +33,8 @@ namespace StocksHelper.Web.Controllers
 
 			string loggedUserId = this.User.GetUserId();
 			var result = await this.alertsService.AddNewToTeam(input, loggedUserId);
+
+			await this.alertsHub.Send("");
 
 			return Ok(result);
 		}

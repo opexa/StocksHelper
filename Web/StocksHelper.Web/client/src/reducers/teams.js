@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/TeamsActionTypes';
-import { TEAM_ALERT_DELETED } from '../constants/AlertsActionTypes';
+import { TEAM_ALERT_ADDED, TEAM_ALERT_DELETED } from '../constants/AlertsActionTypes';
 
 const initialState = {
   myTeams: [],
@@ -68,6 +68,15 @@ export default function teams(state = initialState, action) {
       return {
         ...state,
         isCreateTeamOpened: false
+      }
+    }
+    case TEAM_ALERT_ADDED: {
+      return {
+        ...state,
+        selectedTeam: {
+          ...state.selectedTeam,
+          alerts: state.selectedTeam.alerts.length < 3 ? state.selectedTeam.alerts.concat([action.alert]) : state.selectedTeam.alerts
+        }
       }
     }
     case TEAM_ALERT_DELETED: {

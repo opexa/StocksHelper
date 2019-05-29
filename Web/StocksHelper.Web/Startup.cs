@@ -1,3 +1,5 @@
+using StocksHelper.Web.Hubs;
+
 namespace StocksHelper.Web
 {
 	using System;
@@ -117,6 +119,10 @@ namespace StocksHelper.Web
 			services.AddScoped<IAlertsService, AlertsService>();
 			services.AddScoped<IQuotesService, QuotesService>();
 
+			services.AddSingleton<AlertsHub>();
+
+			services.AddSignalR();
+
 			services.AddMvc()
 							.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
 							.AddJsonOptions(options =>
@@ -184,6 +190,11 @@ namespace StocksHelper.Web
 			app.UseJwtBearerTokens(
 				app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
 				PrincipalResolver);
+
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<AlertsHub>("/alerts");
+			});
 
 			app.UseMvc(routes =>
 			{

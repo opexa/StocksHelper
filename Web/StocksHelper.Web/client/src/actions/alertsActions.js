@@ -5,7 +5,10 @@ import notifications from '../infrastructure/notifications';
 const addTeamAlert = (alert) => (dispatch) => {
   alertsService
     .addTeamAlert(alert)
-    .then(data => notifications.success('Alert added.'))
+    .then(alert => {
+      notifications.success('Alert added.');
+      dispatch({ type: actionTypes.TEAM_ALERT_ADDED, alert });
+    })
     .catch(({message}) => notifications.error(message));
 }
 

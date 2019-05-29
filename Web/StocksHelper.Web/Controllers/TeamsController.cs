@@ -1,14 +1,12 @@
-﻿using StocksHelper.Web.Infrastructure.Extensions;
-using StocksHelper.Web.Models;
-
-namespace StocksHelper.Web.Controllers
+﻿namespace StocksHelper.Web.Controllers
 {
 	using System;
+	using System.Threading.Tasks;
 	using Microsoft.AspNetCore.Mvc;
 	using StocksHelper.Services.DataServices;
 	using StocksHelper.Services.Models.Teams;
-	using StocksHelper.Data.Models;
-	using System.Threading.Tasks;
+	using StocksHelper.Web.Infrastructure.Extensions;
+	using StocksHelper.Web.Models;
 
 	public class TeamsController : BaseController
 	{

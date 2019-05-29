@@ -15,13 +15,17 @@
 		private readonly UserManager<ApplicationUser> userManager;
 		private readonly IRepository<TeamMember> teamsMembersRepository;
 
-		public AlertsService(IRepository<Alert> alertsRepository, UserManager<ApplicationUser> userManager, IRepository<TeamMember> teamsMembersRepository)
+		public AlertsService(
+			IRepository<Alert> alertsRepository, 
+			IRepository<TeamMember> teamsMembersRepository, 
+			UserManager<ApplicationUser> userManager
+		)
 		{
 			this.alertsRepository = alertsRepository;
 			this.userManager = userManager;
 			this.teamsMembersRepository = teamsMembersRepository;
 		}
-		
+
 		public async Task<AlertViewModel> AddNewToTeam(AlertInputModel model, string userId)
 		{
 			var newAlert = Mapper.Map<Alert>(model);
@@ -31,11 +35,12 @@
 			this.alertsRepository.Add(newAlert);
 			await this.alertsRepository.SaveChangesAsync();
 
-			var viewModel = Mapper.Map<AlertViewModel>(newAlert);
+			var viewModel = Mapper.Map<Alert, AlertViewModel>(newAlert, opts => opts.AfterMap((src, dest) => dest.IsCreatedByIssuer = true));
 			return viewModel;
 		}
 
 		public async Task<int> DeleteTeamAlert(int id, string requesterId)
+
 		{
 			var alert = await this.alertsRepository.FindAsync(id);
 			var member = await this.teamsMembersRepository.All().Where(m => m.UserId == requesterId && m.TeamId == alert.TeamId).FirstOrDefaultAsync();

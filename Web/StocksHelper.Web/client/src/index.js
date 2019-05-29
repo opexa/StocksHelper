@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './stores/configureStore';
+import configureSignalR from './configureSignalR';
 import App from './App';
 
 import 'bootstrap/dist/js/bootstrap.js';
@@ -18,10 +19,12 @@ const store = configureStore(history, initialState);
 
 const rootElement = document.getElementById('root');
 
+configureSignalR();
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
   </Provider>,
-rootElement);
+  rootElement);
