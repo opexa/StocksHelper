@@ -34,9 +34,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\StocksHelper.Data\StocksHelper.Data.csproj" />
+    <ProjectReference Include="..\..\Services\StocksHelper.Services.BackgroundServices\StocksHelper.Services.BackgroundServices.csproj" />
     <ProjectReference Include="..\..\Services\StocksHelper.Services.DataServices\StocksHelper.Services.DataServices.csproj" />
     <ProjectReference Include="..\..\Services\StocksHelper.Services.Logging\StocksHelper.Services.Logging.csproj" />
     <ProjectReference Include="..\..\Services\StocksHelper.Services.Mapping\StocksHelper.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\StocksHelper.Services.SignalR\StocksHelper.Services.SignalR.csproj" />
     <ProjectReference Include="..\StocksHelper.Web.Infrastructure\StocksHelper.Web.Infrastructure.csproj" />
   </ItemGroup>
 

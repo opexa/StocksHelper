@@ -121,5 +121,12 @@ namespace StocksHelper.Services.DataServices
 
 			return -1;
 		}
+
+		public IEnumerable<TeamAlertsViewModel> GetAllTeamsAndAlerts()
+		{
+			var teams = this.teamsRepository.All().To<TeamAlertsViewModel>().ToList();
+
+			return teams;
+		}
 	}
 }

@@ -29,7 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.DataS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.Models", "Services\StocksHelper.Services.Models\StocksHelper.Services.Models.csproj", "{9FCCF21B-1639-4219-B4D5-64CD4D0410FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Services.Logging", "Services\StocksHelper.Services.Logging\StocksHelper.Services.Logging.csproj", "{BDE9C677-53FF-4A57-873A-FA3082DB95A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksHelper.Services.Logging", "Services\StocksHelper.Services.Logging\StocksHelper.Services.Logging.csproj", "{BDE9C677-53FF-4A57-873A-FA3082DB95A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Services.SignalR", "Services\StocksHelper.Services.SignalR\StocksHelper.Services.SignalR.csproj", "{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksHelper.Services.BackgroundServices", "Services\StocksHelper.Services.BackgroundServices\StocksHelper.Services.BackgroundServices.csproj", "{5BB44D9F-871B-468A-B8CD-00B14510E9C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +81,14 @@ Global
 		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDE9C677-53FF-4A57-873A-FA3082DB95A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB44D9F-871B-468A-B8CD-00B14510E9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB44D9F-871B-468A-B8CD-00B14510E9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB44D9F-871B-468A-B8CD-00B14510E9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB44D9F-871B-468A-B8CD-00B14510E9C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +103,8 @@ Global
 		{A16BAC52-28BC-4E68-9A1C-7904C7359721} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
 		{9FCCF21B-1639-4219-B4D5-64CD4D0410FE} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
 		{BDE9C677-53FF-4A57-873A-FA3082DB95A2} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
+		{55F0EE9D-5DA6-40B2-8657-9F1B84988EB0} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
+		{5BB44D9F-871B-468A-B8CD-00B14510E9C3} = {9FD21715-BFBF-4C74-B109-E2FEB2D0DBC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D0A0550-C976-4ADC-BD3E-4E6E3C9C74F9}

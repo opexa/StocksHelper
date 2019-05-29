@@ -1,4 +1,4 @@
-using StocksHelper.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace StocksHelper.Web
 {
@@ -9,6 +9,8 @@ namespace StocksHelper.Web
 	using System.Security.Principal;
 	using System.Text;
 	using System.Threading.Tasks;
+	using Newtonsoft.Json;
+
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Diagnostics;
 	using Microsoft.AspNetCore.Hosting;
@@ -22,7 +24,8 @@ namespace StocksHelper.Web
 	using Microsoft.Extensions.Options;
 	using Microsoft.IdentityModel.Tokens;
 	using Microsoft.Extensions.Logging;
-	using Newtonsoft.Json;
+	using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 	using StocksHelper.Common;
 	using StocksHelper.Data;
 	using StocksHelper.Data.Common.Repositories;
@@ -37,6 +40,8 @@ namespace StocksHelper.Web
 	using StocksHelper.Services.DataServices;
 	using StocksHelper.Services.Logging;
 	using StocksHelper.Web.Infrastructure.Middlewares.Auth;
+	using StocksHelper.Services.SignalR.Hubs;
+	using StocksHelper.Services.BackgroundServices;
 
 	public class Startup
 	{
@@ -53,7 +58,10 @@ namespace StocksHelper.Web
 				typeof(TeamViewModel).Assembly,
 				typeof(UserSimpleViewModel).Assembly,
 				typeof(AlertViewModel).Assembly,
-				typeof(AlertInputModel).Assembly
+				typeof(AlertInputModel).Assembly,
+				typeof(AlertShortViewModel).Assembly,
+				typeof(TeamMemberShortViewModel).Assembly,
+				typeof(TeamAlertsViewModel).Assembly
 			);
 
 			// Framework services
@@ -61,7 +69,9 @@ namespace StocksHelper.Web
 			{
 				options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
 				options.UseLazyLoadingProxies();
-			});
+			}, ServiceLifetime.Transient);
+
+			services.AddTransient<ApplicationDbContext>();
 
 			LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
 			services.AddDbContext<LoggingContext>();
@@ -90,6 +100,7 @@ namespace StocksHelper.Web
 						ValidateAudience = true,
 						ValidAudience = this.configuration["JwtTokenValidation:Audience"],
 						ValidateLifetime = true,
+						LifetimeValidator = (before, expires, TokenAccessLevels, param) => { return expires > DateTime.UtcNow; }
 					};
 				});
 
@@ -119,6 +130,8 @@ namespace StocksHelper.Web
 			services.AddScoped<IAlertsService, AlertsService>();
 			services.AddScoped<IQuotesService, QuotesService>();
 
+			services.AddHostedService<AlertsListenerService>();
+
 			services.AddSingleton<AlertsHub>();
 
 			services.AddSignalR();
@@ -130,6 +143,8 @@ namespace StocksHelper.Web
 								options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 							});
 			services.AddLogging();
+
+			services.AddHttpContextAccessor();
 
 			services.AddHttpClient("aplhavantage", c =>
 			{

@@ -21,5 +21,7 @@
 		IEnumerable<UserSimpleViewModel> GetMemberSuggestions(string name, string loggedUserId);
 
 		Task<int> Leave(string userId, int teamId);
+
+		IEnumerable<TeamAlertsViewModel> GetAllTeamsAndAlerts();
 	}
 }

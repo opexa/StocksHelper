@@ -4,7 +4,7 @@
 	using Microsoft.AspNetCore.Mvc;
 	using StocksHelper.Services.DataServices;
 	using StocksHelper.Services.Models.Alerts;
-	using StocksHelper.Web.Hubs;
+	using StocksHelper.Services.SignalR.Hubs;
 	using StocksHelper.Web.Infrastructure.Extensions;
 
 	public class AlertsController : BaseController

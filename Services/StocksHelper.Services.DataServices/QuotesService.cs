@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using StocksHelper.Services.Models.Quotes;
-
-namespace StocksHelper.Services.DataServices
+﻿namespace StocksHelper.Services.DataServices
 {
 	using System.Net.Http;
 	using System.Threading.Tasks;
-	using Microsoft.Extensions.Configuration;
+	using System.Collections.Generic;
 	using Newtonsoft.Json;
+	using Microsoft.Extensions.Configuration;
+	using StocksHelper.Data.Models;
+	using StocksHelper.Services.Models.Quotes;
 
 	public class QuotesService : IQuotesService
 	{
@@ -20,6 +20,31 @@ namespace StocksHelper.Services.DataServices
 		{
 			this.API_KEY = configuration["AlphaVantageApiKey"];
 			this.clientFactory = clientFactory;
+		}
+
+		public async Task<bool> IsAlertTriggered(string ticker, decimal price, AlertMoveType moveType)
+		{
+			var content = await this.MakeRequest(HttpMethod.Get, $"function=GLOBAL_QUOTE&symbol={ticker}");
+
+			content = content.Substring(1, content.Length - 2).Replace("\"Global Quote\":", "");
+			for (int i = 0; i < 10; i++)
+				content = content.Replace($"{i}. ", "");
+
+			var json = JsonConvert.DeserializeObject<TickerQuoteViewModel>(content);
+
+			if (moveType == AlertMoveType.MovesAbove)
+			{
+				if (json.Price >= price)
+					return true;
+			}
+			
+			if (moveType == AlertMoveType.MovesBelow)
+			{
+				if (json.Price <= price)
+					return true;
+			}
+
+			return false;
 		}
 
 		public async Task<bool> IsTickerExisting(string ticker)
