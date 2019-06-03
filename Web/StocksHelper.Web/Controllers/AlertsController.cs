@@ -33,9 +33,7 @@
 
 			string loggedUserId = this.User.GetUserId();
 			var result = await this.alertsService.AddNewToTeam(input, loggedUserId);
-
-			await this.alertsHub.Send("");
-
+			
 			return Ok(result);
 		}
 

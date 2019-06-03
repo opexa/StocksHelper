@@ -118,6 +118,8 @@ namespace StocksHelper.Web
 				.AddRoleStore<ApplicationRoleStore>()
 				.AddDefaultTokenProviders();
 
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 			// Data repositories
 			services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
@@ -144,7 +146,6 @@ namespace StocksHelper.Web
 							});
 			services.AddLogging();
 
-			services.AddHttpContextAccessor();
 
 			services.AddHttpClient("aplhavantage", c =>
 			{

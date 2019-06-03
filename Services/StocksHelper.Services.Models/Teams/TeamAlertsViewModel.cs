@@ -13,13 +13,13 @@
 
 		public IEnumerable<AlertShortViewModel> Alerts { get; set; }
 
-		public IEnumerable<TeamMemberShortViewModel> Members { get; set; }
+		public IReadOnlyList<string> Members { get; set; }
 
 		public void CreateMappings(IMapperConfigurationExpression configuration)
 		{
 			configuration.CreateMap<Team, TeamAlertsViewModel>()
 				.ForMember(model => model.Alerts, x => x.MapFrom(src => Mapper.Map<IEnumerable<AlertShortViewModel>>(src.Alerts)))
-				.ForMember(model => model.Members, x => x.MapFrom(src => Mapper.Map<IEnumerable<TeamMemberShortViewModel>>(src.Members)));
+				.ForMember(model => model.Members, x => x.MapFrom(src => src.Members.Select(m => m.UserId)));
 		}
 	}
 }

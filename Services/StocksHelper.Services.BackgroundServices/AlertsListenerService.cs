@@ -1,4 +1,8 @@
-﻿namespace StocksHelper.Services.BackgroundServices
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using StocksHelper.Data.Models;
+
+namespace StocksHelper.Services.BackgroundServices
 {
 	using System;
 	using System.Threading;
@@ -15,17 +19,20 @@
 	{
 		private readonly AlertsHub alertsHub;
 		private readonly IServiceProvider serviceProvider;
+		private readonly IHttpContextAccessor httpContextAccessor;
 		private IEnumerable<TeamAlertsViewModel> teamsAndAlerts;
 		private Timer alertsTimer;
 		private Timer teamsLoaderTimer;
 
 		public AlertsListenerService(
 			AlertsHub alertsHub,
-			IServiceProvider serviceProvider
+			IServiceProvider serviceProvider,
+			IHttpContextAccessor httpContextAccessor
 		)
 		{
 			this.alertsHub = alertsHub;
 			this.serviceProvider = serviceProvider;
+			this.httpContextAccessor = httpContextAccessor;
 		}
 
 		private void LoadTeamsAndAlerts(object state)
@@ -45,21 +52,22 @@
 				using (var scope = this.serviceProvider.CreateScope())
 				{
 					var quotesService = scope.ServiceProvider.GetService<IQuotesService>();
+					var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 					foreach (var team in this.teamsAndAlerts)
 					{
 						foreach (var alert in team.Alerts)
 						{
-							if (await quotesService.IsAlertTriggered(alert.Ticker, alert.Price, alert.MoveType))
-								this.NotifyTeamMembers(alert, team.Members);
+							/*if (await quotesService.IsAlertTriggered(alert.Ticker, alert.Price, alert.MoveType))*/
+								this.NotifyTeamMembers(alert, this.httpContextAccessor.HttpContext.User.);
 						}
 					}
 				}
 			}
 		}
 
-		public async void NotifyTeamMembers(AlertShortViewModel alert, IEnumerable<TeamMemberShortViewModel> members)
+		public async void NotifyTeamMembers(AlertShortViewModel alert, IReadOnlyList<string> members)
 		{
-			await this.alertsHub.Send("Fellas, the alert is on fire.");
+			await this.alertsHub.TriggerAlert(alert, members);
 		}
 
 		public Task StartAsync(CancellationToken cancellationToken)
