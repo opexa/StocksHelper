@@ -45,7 +45,7 @@ namespace StocksHelper.Services.BackgroundServices
 			}
 		}
 
-		private async void CheckTeamAlerts(object state)
+		private void CheckTeamAlerts(object state)
 		{
 			if (this.teamsAndAlerts != null)
 			{
@@ -58,7 +58,7 @@ namespace StocksHelper.Services.BackgroundServices
 						foreach (var alert in team.Alerts)
 						{
 							/*if (await quotesService.IsAlertTriggered(alert.Ticker, alert.Price, alert.MoveType))*/
-								this.NotifyTeamMembers(alert, this.httpContextAccessor.HttpContext.User.);
+							// this.NotifyTeamMembers(alert, this.httpContextAccessor.HttpContext.User.Identity.Name);
 						}
 					}
 				}
