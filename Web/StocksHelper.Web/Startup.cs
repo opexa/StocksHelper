@@ -64,17 +64,18 @@ namespace StocksHelper.Web
 				typeof(TeamAlertsViewModel).Assembly
 			);
 
+
 			// Framework services
 			services.AddDbContext<ApplicationDbContext>(options =>
 			{
-				options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
+				options.UseNpgsql(this.configuration.GetConnectionString("PostgreSQLConnection"));
 				options.UseLazyLoadingProxies();
 			}, ServiceLifetime.Transient);
 
 			services.AddTransient<ApplicationDbContext>();
 
-			LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
-			services.AddDbContext<LoggingContext>();
+			// LoggingContext.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+			// services.AddDbContext<LoggingContext>();
 
 			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["JwtTokenValidation:Secret"]));
 
@@ -149,7 +150,7 @@ namespace StocksHelper.Web
 
 			services.AddHttpClient("aplhavantage", c =>
 			{
-				c.BaseAddress = new Uri(configuration["AlphaVantagetApiEndpoint"]);
+				c.BaseAddress = new Uri(configuration["AlphaVantageApiEndpoint"]);
 			});
 
 			// In production, the React files will be served from this directory
@@ -162,11 +163,11 @@ namespace StocksHelper.Web
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(
 			IApplicationBuilder app,
-			IHostingEnvironment env,
-			ILoggerFactory loggingFactory
+			IHostingEnvironment env
+			// ILoggerFactory loggingFactory
 		)
 		{
-			loggingFactory.AddContext(LogLevel.Warning);
+			// loggingFactory.AddContext(LogLevel.Warning);
 
 			// Seed data on application startup
 			using (var serviceScope = app.ApplicationServices.CreateScope())
@@ -256,5 +257,5 @@ namespace StocksHelper.Web
 
 			return new GenericPrincipal(identity, roles.ToArray());
 		}
-	}
+	}	
 }
